@@ -1,0 +1,194 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <meta name="description" content="The Colonial Heritage Foundation loves America.">
+    <meta name="keywords" content="colonial, heritage, liberty, America, fourth of july">
+    <title>Finance Something</title>
+    
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="${ STATIC_URL }homepage/media/jquery.form.js"></script>
+    <script src="${ STATIC_URL }homepage/media/jquery.loadmodal.js"></script>
+    <script src="${STATIC_URL}homepage/scripts/signup.js/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    
+
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+  
+    <style>
+      body {
+          padding-top: 70px;
+          /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+      }
+    </style>
+  </head>
+  <body>
+<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navar-left">
+                    %if request.user.is_authenticated():
+                    <div class="list-inline">
+                        <li><a href="/users/account/"><button class="btn btn-success btn-lg">My Account</button></a></li>
+                        <li><a href="/homepage/logout/"><button class="btn btn-primary btn-lg">Log Out</button></a></li>
+                    </div>
+                    %else:
+                    <div class="list-inline">
+                        <li><button id="show_login_dialog" class="btn btn-success btn-lg">Login</button></li>
+                        <li><a href="/homepage/signup.create"><button class="btn btn-primary btn-lg">Sign Up</button></a></li>
+                    </div>
+                    %endif
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                      <a  href="/homepage/index/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/account/account/">Accounts</a>
+                    </li>
+                    <li>
+                        <a href="/transaction/transaction">Transactions</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/dashboard">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+<%block name="top">
+</%block>
+    <div class="container">
+        <div class="row">
+            <%block name="content">
+            <div class="col-lg-12 text-center">
+                <h1>Lorem Ipsum</h1>
+                <p class="lead">Test Test Test</p>
+                <ul class="list-unstyled">
+                    <li>Bootstrap v3.3.1</li>
+                    <li>jQuery v1.11.1</li>
+                </ul>
+            </%block>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 
+    <script src="js/jquery.js"></script>
+    <-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${ STATIC_URL }homepage/scripts/bootstrap.min.js"></script>
+
+    <%block name="login">
+      <div>
+        <!-- Modal Login-->
+          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                  <!--
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-warning">Save changes</button>
+                    </div>
+                  -->
+              </div>
+            </div>
+          </div>
+        <!-- Modal Login-->
+          <div class="modal fade" id="instructions_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Upload Instructions</h4>
+                </div>
+                <div class="modal-body">
+                  Loading the CSV into the database is not a pretty process; as such, uploading your transaction history is a work-in-progress. 
+                  <p>Currently, there is no way to check for duplicate entries, so beware when performing multiple uploads--you will need to doctor the spreadsheet first to remove duplicates. Also, the upload is a little unstable currently, especially if the user does not follow the upload steps properly. Both of these "features" will be fixed in time. <p>
+                  <table><tr>Steps:</tr>
+                  <tr>
+                    <li>1. Download transaction history from https://mint.com in csv format.</li>
+                    <li>2. Create a folder called 'temp' on your local disk or C drive.</li>
+                    <li>3. Save the transactions.csv to the temp folder.</li>
+                    <li>4. Format the date column in the csv to follow yyyy-mm-dd.
+                        You can do this by highlighting the cells, right-click, select format, custom, and type yyyy-mm-dd.</li>
+                    <li>5. Save and exit. It is important to note that if you enter the csv file again, you will need to format the date column again.</li>
+                  </tr>
+                  </table>
+                </div>
+                  <!--
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-warning">Save changes</button>
+                    </div>
+                  -->
+              </div>
+            </div>
+          </div>
+        </div>
+    </%block>
+      
+      
+  
+    <div class="wrapper">
+
+      <div class="row">
+
+      <div class="col-sm-2">
+        <%block name="left">
+
+        </%block>
+      </div>
+
+
+    </div>
+
+      <div class="push"></div>
+
+    </div>
+
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }
+  
+  </body>
+</html>

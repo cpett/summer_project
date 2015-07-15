@@ -1,0 +1,333 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <meta name="description" content="Finance Something">
+    <meta name="keywords" content="data visualization, finance, money, personl">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Finance Something</title>
+    
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <!--<script src="${STATIC_URL}users/scripts/script.js/"></script>-->
+    <script src="${ STATIC_URL }homepage/media/jquery.form.js"></script>
+    <script src="${ STATIC_URL }homepage/media/jquery.loadmodal.js"></script>
+    <script src="${STATIC_URL}homepage/scripts/signup.js/"></script>
+    <script src="${ STATIC_URL }homepage/scripts/base.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link src="${ STATIC_URL }homepage/styles/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link src="${ STATIC_URL }homepage/styles/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link src="${ STATIC_URL }homepage/styles/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand topnav" href="#">Login</a> -->
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navar-left">
+                    %if request.user.is_authenticated():
+                    <div class="list-inline">
+                        <li><a href="/users/account/"><button class="btn btn-success btn-lg">My Account</button></a></li>
+                        <li><a href="/homepage/logout/"><button class="btn btn-primary btn-lg">Log Out</button></a></li>
+                    </div>
+                    %else:
+                    <div class="list-inline">
+                        <li><button id="show_login_dialog" class="btn btn-success btn-lg">Login</button></li>
+                        <li><a href="/homepage/signup.create"><button class="btn btn-primary btn-lg">Sign Up</button></a></li>
+                    </div>
+                    %endif
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                %if request.user.is_authenticated():
+                    <li><a>Welcome, ${ request.user.get_full_name() } </a> </li>
+                    <li>
+                        <a href="/account/account">Accounts</a>
+                    </li>
+                    <li>
+                        <a href="/transaction/transaction/">Transactions</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/dashoard">Contact</a>
+                    </li>
+                %else:
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+                    <li>
+                        <a href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                %endif
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+        <!-- Modal Login-->
+          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                  <!--
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-warning">Save changes</button>
+                    </div>
+                  -->
+              </div>
+            </div>
+          </div>
+
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>My Finances</h1>
+                        <h3>Personal Finances</h3>
+                        <hr class="intro-divider">
+
+
+                        %if request.user.has_perm('add_logentry'):                        
+                            <ul class="list-inline intro-social-buttons">
+                                <li>
+                                    <a href="/users/users/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Users</span></a>
+                                </li>
+                                <li>
+                                    <a href="/account/account" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Accounts</span></a>
+                                </li>
+                                <li>
+                                    <a href="/transaction/transaction" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Transactions</span></a>
+                                </li>
+                                <li>
+                                    <a href="/dashboard/dashboard" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Dashboard</span></a>
+                                </li>
+                            </ul>
+                        %elif request.user.is_authenticated():
+                            <ul class="list-inline intro-social-buttons">
+                                <li>
+                                    <a href="/account/account" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Accounts</span></a>
+                                </li>
+                                <li>
+                                    <a href="/transaction/transaction" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Transactions</span></a>
+                                </li>
+                                <li>
+                                    <a href="/dashboard/dashboard" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Dashboard</span></a>
+                                </li>
+                            </ul>
+                        %else:
+                            <ul class="list-inline intro-social-buttons">
+                                <li>
+                                    <a href="https://www.linkedin.com/in/codybpettit" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Lorem</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Ipsum</span></a>
+                                </li>
+                            </ul>
+                        %endif
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+
+    <a  name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Test Picture Holder<br>Lorem Ipsum dolor sit</h2>
+                    <p class="lead">Lorem ipsum dolor sit amet, nullam eget sit est, mauris orci pellentesque ullamcorper, eget id nec, cursus eget. Commodo cras, donec congue sem amet nec aliquet vitae, ipsum morbi vitae elementum dignissim, euismod ipsum donec in nunc, metus a aenean. Donec ut, pulvinar tincidunt mauris gravida, quam integer pellentesque dui suspendisse.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="${ STATIC_URL }homepage/media/ipad.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Another Blurb<br>Lorem ipsum</h2>
+                    <p class="lead">Donec ut, pulvinar tincidunt mauris gravida, quam integer pellentesque dui suspendisse. Ullamcorper scelerisque, euismod pede nunc sapien augue, leo neque pretium leo pulvinar velit harum, hendrerit lacus urna. Est odio ac at nulla, litora proin aenean risus nulla soluta, convallis eget volutpat montes rerum, consequat rhoncus ullamcorper a tincidunt.</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="${ STATIC_URL }homepage/media/dog.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Another Picture<br>Picture Three</h2>
+                    <p class="lead">Ullamcorper scelerisque, euismod pede nunc sapien augue, leo neque pretium leo pulvinar velit harum, hendrerit lacus urna. Est odio ac at nulla, litora proin aenean risus nulla soluta, convallis eget volutpat montes rerum, consequat rhoncus ullamcorper a tincidunt.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="${ STATIC_URL }homepage/media/phones.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <a  name="contact"></a>
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Banner Section</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/codybpettit" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Est odio ac at nulla, litora proin aenean risus nulla soluta</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery 
+    <script src="${ STATIC_URL }homepage/scripts/jquery.js"></script>
+    -->     
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${ STATIC_URL }homepage/scripts/bootstrap.min.js"></script>
+
+</body>
+
+</html>

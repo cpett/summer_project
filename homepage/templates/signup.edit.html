@@ -1,0 +1,52 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="header">
+  <div class="header">
+
+  </div>
+</%block>
+
+<%block name="top">
+  <div class="row top-header">
+
+  </div>
+</%block>
+
+<%block name="left">
+  <div>
+
+  </div>
+</%block>
+
+<%block name="content">
+  <div class="content row">
+    <div class="col-md-6">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img  width=100% src="${ STATIC_URL }homepage/media/signup.jpg">
+
+        <div class="cold-md-6">
+        <label>Hey! So glad you are thinking about joinging and participating in my little project. Who really knows where this project will take me, but I plan on turning it into something cool. At the very least, I will sure learn alot!</>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </div>
+    <div class="col-md-6 right">
+      <form method="POST">
+        <table>
+          ${ form } 
+        </table>
+        <br>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/homepage/signup.delete/${ user.id }" class="btn btn-danger">Delete</a>
+      </form>
+    </div>
+
+  </div
+</%block>
+
+

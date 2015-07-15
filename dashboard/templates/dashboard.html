@@ -1,0 +1,418 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="content">
+  <div class="content">
+    <h2 class="manage">Dashboard</h2>
+    <div class="clearfix"></div>
+    <br/>
+    <div class="row form-inline">
+      <div class="col-md-3">
+        <h3>Accounts Overview</h3>
+        <select id="d_list" onChange="updateData()">
+            <option value="All">All</option>
+            <option value="Checking">Checking</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Investments">Investments</option>
+            <option value="Savings">Savings</option>
+            <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
+        <div class="text-right">
+          <h3>Lorem Ipsum</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-inline">
+    <div class="col-md-6">
+      <div class="bar_chart">
+      </div>
+    </div>
+    <div class="col-md-6">
+      Something will go here. Possibly a pie chart. Maybe something cool.
+      Lorem ipsum dolor sit amet, etiam suscipit molestie, accumsan aliquam est urna, mi metus vel. Mollis ut in congue eros, ornare ac sagittis donec, quis vel cupiditate elit facilisis, lectus purus eu magnis penatibus, at gravida eu. Enim pellentesque integer lorem, morbi quam, massa nulla, nulla enim. Duis quam facilisis congue, blanditiis metus. Duis scelerisque pellentesque ut nullam nunc, aliquam at in quis quisque ipsum.
+Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultricies adipisci aenean ligula, arcu ac nunc, suspendisse in, lorem gravida cum. Libero quis. Dui vel potenti, vel vestibulum. Suspendisse cras, sapien eu, id mi arcu ridiculus nibh vitae est, nonummy pulvinar et purus, dignissim risus. Velit non mauris pellentesque, integer mattis.
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-right">
+      <h3>Credit vs Debit</h3>
+      <select id="l_list" onChange="updateLine()">
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+      </select>
+    </div>
+  </div>
+  <div>
+    <div class="col-md-12">
+      <div class="line_chart">
+      </div>
+    </div>
+  </div>
+
+    <script>
+      //#load in data, call loadGraph
+        var data = ${types_json}
+        loadGraph(data);
+      //#updateData//
+        function updateData() {
+          var remove = d3.select(".this_svg").remove()
+            //removes current table for filtered
+
+          var data = ${types_json}
+          var x = document.getElementById("d_list").selectedIndex;       
+
+          if (x == 1) {
+            var key2value = selectWhere(data, "Checking");
+          }
+          else if (x == 2) {
+            var key2value = selectWhere(data, "Credit Card");
+          }
+          else if (x == 3) {
+            var key2value = selectWhere(data, "Investments");
+          }
+          else if (x == 4) {
+            var key2value = selectWhere(data, "Savings");
+          }
+          else if (x == 5) {
+            var key2value = selectWhere(data, "Other");
+          }
+          else{
+            loadGraph(data);
+          }
+        }
+
+      //#called to create the filtered data
+        function selectWhere(data, propertyName) {
+          var acc_data = []
+          for (var i = 0; i < data.length; i++) {
+            if (data[i][2] === propertyName) {
+              acc_data[acc_data.length] = data[i];
+              //return data[i];
+            }
+          }
+          loadGraph(acc_data);
+        }
+      //#loads graph
+        function loadGraph(data) {
+        //#set margins, build svg bar_chart
+          var margin = {top: 40, right: 20, bottom: 30, left: 60},
+              width = 700 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+
+          var x = d3.scale.ordinal()
+              .rangeRoundBands([0, width], .2);
+
+          var y = d3.scale.linear()
+              .range([height, 0]);
+
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom");
+
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+          var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+              return "<strong>Acount:</strong> <span style='color:red'>" + d[0] + "</span>" +"<br/>" + 
+              "<strong>Amount:</strong> <span style='color:red'>" + d[1] + "</span>";
+            })
+
+          var svg = d3.select(".bar_chart").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .attr("id", "svg_bar")
+              .attr("class", "this_svg")
+            .append("g")
+              .attr("id", "g_bar")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          svg.call(tip);
+          //starts the chart at 0, handles if there is only one account
+          data[data.length] = ["", 0, ""]
+
+          x.domain(data.map(function(d) { return d[0]; }));
+          y.domain(d3.extent(data, function(d) { return +d[1]; })).nice();
+
+          /*  ////adds x axis////
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("id", "g_bar")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+          */
+          /* ///Automatic Transition///
+            svg.selectAll("g").remove();
+            svg.selectAll("text").remove();
+          */
+          svg.append("g")
+              .attr("class", "y axis")
+              .attr("id", "g_bar")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end");
+
+            svg.selectAll(".bar")
+                .data(data)
+            .enter().append("rect")
+                .attr("class", function(d) { return d[1] < 0 ? "bar negative" : "bar positive"; })
+                .attr("y", function(d) { return y(Math.max(0, d[1])); })
+                .attr("x", function(d) { return x(d[0]); })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                  .ease("elastic")
+                .delay(function (d, i) { return i*100; })
+                .attr("height", function(d) { return Math.abs(y(d[1]) - y(0)); })
+                .attr("width", x.rangeBand())
+        /* ///Automatic Transition///
+          var rect = svg.selectAll("rect")
+            .data(data);
+
+          rect.attr("id", "update");
+
+          rect.enter().append("rect")
+            .attr("id", "enter")
+            .attr("class", function(d) { return d[1] < 0 ? "bar negative" : "bar positive"; })
+            .attr("y", function(d) { return y(Math.max(0, d[1])); })
+            .attr("x", function(d) { return x(d[0]); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide)
+            .transition()
+              .ease("elastic")
+            .delay(function (d, i) { return i*100; })
+            .attr("height", function(d) { return Math.abs(y(d[1]) - y(0)); })
+            .attr("width", x.rangeBand());
+          rect.text(function(d) { return d; });
+          rect.exit().remove();
+        */
+            function type(d) {
+              d[1] = +d[1];
+              return d;
+            }
+        }
+    </script>
+
+    <style>
+        path.line {
+          fill: none;
+          stroke: #666;
+          stroke-width: 1.5px;
+        }
+
+        path.area {
+          fill: #e7e7e7;
+        }
+
+        .axis {
+          shape-rendering: crispEdges;
+        }
+
+        .x.axis line {
+          stroke: #fff;
+        }
+
+        .x.axis .minor {
+          stroke-opacity: .5;
+        }
+
+        .x.axis path {
+          display: none;
+        }
+
+        .y.axis line, .y.axis path {
+          fill: none;
+          stroke: #000;
+        }
+        .guideline {
+          margin-right: 100px;
+          float: right;
+        }
+    </style>
+
+    <script>
+        //load the initial graph data (year 2015)
+        var d_data = ${dc_json}
+        var data = d_data.filter(function(d) {
+            return d[3] == "2015";
+          });
+        loadLine(data);
+
+        function parse(date) {
+          //parse the dates into month format
+            var p = d3.time.format("%Y-%m-%d").parse;
+            var o = d3.time.format("%m")
+            
+            var p_date = p(date)
+            var o_date = o(p_date)
+            return o_date
+          };
+
+        //preps the filter data
+        function updateLine() {
+            var remove = d3.select(".svg_line").remove()
+              //removes current table for filtered
+              
+            var data = ${dc_json}
+            var x = document.getElementById("l_list").selectedIndex;       
+
+            if (x == 1) {
+              var key2value = selectWhere(data, "2014");
+            }
+            else{
+              var key2value = selectWhere(data, "2015")
+            }
+          };
+
+          //#called to create the filtered data
+        function selectWhere(data, propertyName) {
+            var new_data = data.filter(function(d) {
+                return d[3] == propertyName;
+              });
+            loadLine(new_data);
+          };
+
+        //initial graph load.
+        function loadLine(data){
+          var margin = {top: 50, right: 60, bottom: 50, left: 60},
+              width = 1100 - margin.left - margin.right,
+              height = 600 - margin.top - margin.bottom;   
+
+          // Scales and axes. Note the inverted domain for the y-scale: bigger is up!
+          var x = d3.time.scale().range([0, width]),
+              y = d3.scale.linear().range([height, 0]),
+              xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true),
+              yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
+
+          // An area generator, for the light fill.
+          var area = d3.svg.area()
+              .interpolate("monotone")
+              .x(function(d) { return x(parse(d[0])); })
+              .y0(height)
+              .y1(function(d) { return y(+d[1]); });
+
+          // A line generator, for the dark stroke.
+          var line = d3.svg.line()
+              .interpolate("monotone")
+              .x(function(d) { return x(parse(d[0])); })
+              .y(function(d) { return y(+d[1]); });
+
+
+            // Filter to one type
+            var credit = data.filter(function(d) {
+              return d[2] == "credit";
+            });
+
+            var debit = data.filter(function(d) {
+              return d[2] == "debit";
+            });
+
+            // Compute the minimum and maximum date, and the maximum price.
+            x.domain([d3.min(debit, function(d) { return parse(d[0]); }), d3.max(debit, function(d) { return parse(d[0]); })]).nice();
+            y.domain([d3.min(debit, function(d) { return +d[1]; }), d3.max(credit, function(d) { return +d[1]; })]).nice();
+
+            // Add an SVG element with the desired dimensions and margin.
+            var svg = d3.select(".line_chart").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("class", "svg_line")
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                
+
+            // Add the clip path.
+            svg.append("clipPath")
+                .attr("id", "clip")
+              .append("rect")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Add the x-axis.
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            // Add the y-axis.
+            svg.append("g")
+                .attr("class", "y axis")
+                .attr("transform", "translate(" + width + ",0)")
+                .call(yAxis);
+
+            var colors = d3.scale.category10();
+            svg.selectAll('.line')
+              .data([credit, debit])
+              .enter()
+                .append('path')
+                  .attr('class', 'line')
+                  .style('stroke', function(d) {
+                    return colors(Math.random() * 50);
+                  })
+                  .attr('clip-path', 'url(#clip)')
+                  .attr('d', function(d) {
+                    return line(d);
+                  })
+
+            /* Add 'curtain' rectangle to hide entire graph */
+            var curtain = svg.append('rect')
+              .attr('x', -1 * width)
+              .attr('y', -1 * height)
+              .attr('height', height)
+              .attr('width', width)
+              .attr('class', 'curtain')
+              .attr('transform', 'rotate(180)')
+              .style('fill', '#ffffff')
+
+            /* Optionally add a guideline */
+            var guideline = svg.append('line')
+              .attr('stroke', '#333')
+              .attr('stroke-width', 0)
+              .attr('class', 'guide')
+              .attr('x1', 1)
+              .attr('y1', 1)
+              .attr('x2', 1)
+              .attr('y2', height)
+
+            /* Create a shared transition for anything we are animating */
+            var t = svg.transition()
+              .delay(750)
+              .duration(6000)
+              .ease('linear')
+              .each('end', function() {
+                d3.select('line.guide')
+                  .transition()
+                  .style('opacity', 0)
+                  .remove()
+              });
+
+            t.select('rect.curtain')
+              .attr('width', 0);
+            t.select('line.guide')
+              .attr('transform', 'translate(' + width + ', 0)')
+
+            d3.select("#show_guideline").on("change", function(e) {
+              guideline.attr('stroke-width', this.checked ? 1 : 0);
+              curtain.attr("opacity", this.checked ? 0.75 : 1);
+            })
+
+          // Parse dates and numbers. We assume values are sorted by date.
+          function type(d) {
+            d[0] = parse(d[0]);
+            d[1] = +d[1];
+            console.log("here")
+            return d;
+          } 
+        };
+    </script> 
+    </body>
+  </div>
+</%block>
