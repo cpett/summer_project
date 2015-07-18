@@ -34,7 +34,7 @@
     <div class="col-md-6">
       Something will go here. Possibly a pie chart. Maybe something cool.
       Lorem ipsum dolor sit amet, etiam suscipit molestie, accumsan aliquam est urna, mi metus vel. Mollis ut in congue eros, ornare ac sagittis donec, quis vel cupiditate elit facilisis, lectus purus eu magnis penatibus, at gravida eu. Enim pellentesque integer lorem, morbi quam, massa nulla, nulla enim. Duis quam facilisis congue, blanditiis metus. Duis scelerisque pellentesque ut nullam nunc, aliquam at in quis quisque ipsum.
-Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultricies adipisci aenean ligula, arcu ac nunc, suspendisse in, lorem gravida cum. Libero quis. Dui vel potenti, vel vestibulum. Suspendisse cras, sapien eu, id mi arcu ridiculus nibh vitae est, nonummy pulvinar et purus, dignissim risus. Velit non mauris pellentesque, integer mattis.
+      Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultricies adipisci aenean ligula, arcu ac nunc, suspendisse in, lorem gravida cum. Libero quis. Dui vel potenti, vel vestibulum. Suspendisse cras, sapien eu, id mi arcu ridiculus nibh vitae est, nonummy pulvinar et purus, dignissim risus. Velit non mauris pellentesque, integer mattis.
     </div>
   </div>
   <div class="col-md-3">
@@ -66,6 +66,7 @@ Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultr
           var x = document.getElementById("d_list").selectedIndex;       
 
           if (x == 1) {
+            console.log("checking")
             var key2value = selectWhere(data, "Checking");
           }
           else if (x == 2) {
@@ -133,6 +134,7 @@ Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultr
             .append("g")
               .attr("id", "g_bar")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
           svg.call(tip);
           //starts the chart at 0, handles if there is only one account
           data[data.length] = ["", 0, ""]
@@ -266,15 +268,16 @@ Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultr
             var x = document.getElementById("l_list").selectedIndex;       
 
             if (x == 1) {
-              var key2value = selectWhere(data, "2014");
+              var key2value = lineFilter(data, "2014");
             }
             else{
-              var key2value = selectWhere(data, "2015")
+              var key2value = lineFilter(data, "2015")
             }
           };
 
           //#called to create the filtered data
-        function selectWhere(data, propertyName) {
+        function lineFilter(data, propertyName) {
+          console.log("uh-oh")
             var new_data = data.filter(function(d) {
                 return d[3] == propertyName;
               });

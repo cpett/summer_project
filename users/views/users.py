@@ -90,10 +90,10 @@ class UserEditForm(forms.Form):
   last_name = forms.CharField(label='Last Name', required=True, max_length=100)
   address1 = forms.CharField(label='Address 1', required=True, max_length=100)
   address2 = forms.CharField(label='Address 2', required=False, max_length=100)
-  city = forms.CharField(label='City', required=True, max_length=100)
+  city = forms.CharField(label='City', required=True, max_length=50)
   state = forms.ChoiceField(State.STATE_CHOICES)
-  country = forms.CharField(label='Country', required=True, max_length=100)
-  zip = forms.CharField(label='ZIP', required=True, max_length=100)
+  country = forms.CharField(label='Country', required=True, max_length=50)
+  zip = forms.CharField(label='ZIP', required=True, max_length=5)
   group = forms.ModelChoiceField(label='Group', queryset=Group.objects.all(), empty_label=None, widget=forms.RadioSelect())
   #userid from form.userid = user.id
 

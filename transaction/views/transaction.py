@@ -247,7 +247,7 @@ class TransEditForm(forms.Form):
   date = forms.DateField(required=True, widget=forms.TextInput(attrs={'class':'datepicker'}))
   description = forms.CharField(required=True)
   original_description = forms.CharField(label="Original Description", required=True)
-  amount = forms.CharField(required=True)
+  amount = forms.DecimalField(required=True, max_digits=12, decimal_places=2)
   type_choices = (
       ('debit', 'debit'),
       ('credit', 'credit'),

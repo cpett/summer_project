@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1436573295.445891
+_modified_time = 1437237048.261818
 _enable_loop = True
 _template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base2.htm'
 _template_uri = '/homepage/templates/base2.htm'
@@ -20,8 +20,8 @@ def render_body(context,**pageargs):
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         self = context.get('self', UNDEFINED)
-        request = context.get('request', UNDEFINED)
         STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        request = context.get('request', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -58,7 +58,7 @@ def render_body(context,**pageargs):
         if request.user.is_authenticated():
             __M_writer('                    <li><a>Welcome, ')
             __M_writer(str( request.user.get_full_name() ))
-            __M_writer(' </a> </li>\r\n                    <li>\r\n                        <a href="/account/account">Accounts</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/transaction/transaction/">Transactions</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/dashboard/dashoard">Contact</a>\r\n                    </li>\r\n')
+            __M_writer(' </a> </li>\r\n                    <li>\r\n                        <a href="/account/account">Accounts</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/transaction/transaction/">Transactions</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/dashboard/dashboard">Dashboard</a>\r\n                    </li>\r\n')
         else:
             __M_writer('                    <li>\r\n                        <a href="#about">About</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="#services">Services</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="#contact">Contact</a>\r\n                    </li>\r\n')
         __M_writer('                </ul>\r\n            </div>\r\n            <!-- /.navbar-collapse -->\r\n        </div>\r\n        <!-- /.container -->\r\n    </nav>\r\n\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  ...\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n    <!-- Header -->\r\n    <a name="about"></a>\r\n    <div class="intro-header">\r\n        <div class="container">\r\n\r\n            <div class="row">\r\n                <div class="col-lg-12">\r\n                    <div class="intro-message">\r\n                        <h1>My Finances</h1>\r\n                        <h3>Personal Finances</h3>\r\n                        <hr class="intro-divider">\r\n\r\n\r\n')
@@ -86,6 +86,6 @@ def render_body(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "/homepage/templates/base2.htm", "source_encoding": "ascii", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base2.htm", "line_map": {"16": 4, "18": 0, "26": 2, "27": 4, "28": 5, "32": 5, "33": 23, "34": 28, "35": 28, "36": 29, "37": 29, "38": 30, "39": 30, "40": 31, "41": 31, "42": 32, "43": 32, "44": 34, "45": 34, "46": 37, "47": 37, "48": 40, "49": 40, "50": 51, "51": 51, "52": 51, "53": 73, "54": 74, "55": 78, "56": 79, "57": 84, "58": 86, "59": 87, "60": 87, "61": 87, "62": 97, "63": 98, "64": 108, "65": 149, "66": 150, "67": 164, "68": 165, "69": 176, "70": 177, "71": 189, "72": 213, "73": 213, "74": 235, "75": 235, "76": 257, "77": 257, "78": 326, "79": 326, "80": 329, "81": 329, "87": 81}}
+{"source_encoding": "ascii", "line_map": {"16": 4, "18": 0, "26": 2, "27": 4, "28": 5, "32": 5, "33": 23, "34": 28, "35": 28, "36": 29, "37": 29, "38": 30, "39": 30, "40": 31, "41": 31, "42": 32, "43": 32, "44": 34, "45": 34, "46": 37, "47": 37, "48": 40, "49": 40, "50": 51, "51": 51, "52": 51, "53": 73, "54": 74, "55": 78, "56": 79, "57": 84, "58": 86, "59": 87, "60": 87, "61": 87, "62": 97, "63": 98, "64": 108, "65": 149, "66": 150, "67": 164, "68": 165, "69": 176, "70": 177, "71": 189, "72": 213, "73": 213, "74": 235, "75": 235, "76": 257, "77": 257, "78": 326, "79": 326, "80": 329, "81": 329, "87": 81}, "uri": "/homepage/templates/base2.htm", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base2.htm"}
 __M_END_METADATA
 """

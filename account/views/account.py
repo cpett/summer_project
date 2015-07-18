@@ -38,12 +38,10 @@ def process_request(request):
   for check in checking:
     i = Decimal(check.amount)
     icheck += i
-  print(icheck)
 
   for credit in credit_card:
     i = Decimal(credit.amount)
     icredit += i
-  print(icredit)
 
   for inv in investments:
     i = Decimal(inv.amount)
@@ -62,7 +60,7 @@ def process_request(request):
     isaving += i
 
   iCash = icheck + isaving
-  iDebt = icredit + iloan
+  iDebt = abs(icredit) + abs(iloan)
   iLongT = iinv + iothers
   
   params['iCash'] = iCash
@@ -103,11 +101,14 @@ def edit(request):
   if request.method == 'POST':
     form = AccountEditForm(request.POST)
     if form.is_valid():
+      form_amount = form.cleaned_data['amount']
+      d_amount = Decimal(form_amount)
+      
       account.account_name = form.cleaned_data['account_name']
-      account.amount = (form.cleaned_data['amount'])
+      account.amount = d_amount
       account.acc_type = form.cleaned_data['acc_type']
       account.save()
-      return HttpResponseRedirect('/account/account/')      
+      return HttpResponseRedirect('/account/account/')    
 
   params['form'] = form
   params['account'] = account
@@ -116,7 +117,7 @@ def edit(request):
 
 class AccountEditForm(forms.Form):
   account_name = forms.CharField(label='Account Name')
-  amount = forms.CharField(required=True)
+  amount = forms.DecimalField(required=True, max_digits=12, decimal_places=2)
   choices = (
     ('Checking', 'Checking'),
     ('Credit Card', 'Credit Card'),
@@ -126,6 +127,17 @@ class AccountEditForm(forms.Form):
     ('Savings', 'Savings'),
     )
   acc_type = forms.ChoiceField(choices=choices, required=True, label='Account Type')
+
+  # def clean(self):
+  #   from django.core.exceptions import ValidationError
+  #   if not (self.cleaned_data['amount'] >= 0) or (self.cleaned_data['amount'] <= 0):
+  #       raise ValidationError('Amount field must be an integer.')
+  #   # if not (self.trial_stop >= self.movement_start):
+  #   #     raise ValidationError('trial stop must be >= movement start')
+  #   # if not (self.trial_stop > self.trial_start):
+  #   #     raise ValidationError('trial stop must be > trial start')
+
+    # return self.cleaned_data
   #validation rules; i.e., not too huge a number
 
 ######################################################
