@@ -26,9 +26,11 @@ def process_request(request):
   else:
     return HttpResponseRedirect('/homepage/login/')
 
+  acc_id = hmod.Account.objects.all().filter(user_id=userid, acc_type="Credit Card").values_list('id')
+
   account = hmod.Account.objects.all().filter(user_id=userid).values_list('account_name', 'amount').order_by('-amount')
   types = hmod.Account.objects.all().filter(user_id=userid).values_list('account_name', 'amount', 'acc_type').order_by('-amount')
-  trans = hmod.Transaction.objects.all().filter(User_id=userid).values_list('date', 'transaction_type', 'amount', 'category', 'account_name').order_by('date')
+  trans = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('date', 'transaction_type', 'amount', 'category', 'account_name').order_by('date')
 
   date = hmod.Transaction.objects.distinct('date').order_by('date')
 

@@ -55,6 +55,7 @@
 
     <script>
       //#load in data, call loadGraph
+        console.log(${trans_json})
         var data = ${types_json}
         loadGraph(data);
       //#updateData//
@@ -204,43 +205,6 @@
         }
     </script>
 
-    <style>
-        path.line {
-          fill: none;
-          stroke: #666;
-          stroke-width: 1.5px;
-        }
-
-        path.area {
-          fill: #e7e7e7;
-        }
-
-        .axis {
-          shape-rendering: crispEdges;
-        }
-
-        .x.axis line {
-          stroke: #fff;
-        }
-
-        .x.axis .minor {
-          stroke-opacity: .5;
-        }
-
-        .x.axis path {
-          display: none;
-        }
-
-        .y.axis line, .y.axis path {
-          fill: none;
-          stroke: #000;
-        }
-        .guideline {
-          margin-right: 100px;
-          float: right;
-        }
-    </style>
-
     <script>
         //load the initial graph data (year 2015)
         var d_data = ${dc_json}
@@ -252,11 +216,11 @@
         function parse(date) {
           //parse the dates into month format
             var p = d3.time.format("%Y-%m-%d").parse;
-            var o = d3.time.format("%m")
+            //var o = d3.time.format("%m")
             
             var p_date = p(date)
-            var o_date = o(p_date)
-            return o_date
+            //var o_date = o(p_date)
+            return p_date
           };
 
         //preps the filter data
@@ -277,7 +241,6 @@
 
           //#called to create the filtered data
         function lineFilter(data, propertyName) {
-          console.log("uh-oh")
             var new_data = data.filter(function(d) {
                 return d[3] == propertyName;
               });
@@ -291,10 +254,15 @@
               height = 600 - margin.top - margin.bottom;   
 
           // Scales and axes. Note the inverted domain for the y-scale: bigger is up!
-          var x = d3.time.scale().range([0, width]),
-              y = d3.scale.linear().range([height, 0]),
-              xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true),
-              yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
+          var x = d3.time.scale()
+                  .range([0, width]);
+          var y = d3.scale.linear().range([height, 0]);
+          var yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
+          var xAxis = d3.svg.axis()
+                      .scale(x)
+                      .ticks(d3.time.months)
+                      .tickSize(-height)
+                      .tickFormat(d3.time.format("%b"));
 
           // An area generator, for the light fill.
           var area = d3.svg.area()
@@ -319,9 +287,51 @@
               return d[2] == "debit";
             });
 
-            // Compute the minimum and maximum date, and the maximum price.
-            x.domain([d3.min(debit, function(d) { return parse(d[0]); }), d3.max(debit, function(d) { return parse(d[0]); })]).nice();
-            y.domain([d3.min(debit, function(d) { return +d[1]; }), d3.max(credit, function(d) { return +d[1]; })]).nice();
+            var x_deb_min = d3.min(debit, function(d) { return parse(d[0]); })
+            var x_cred_min = d3.min(credit, function(d) { return parse(d[0]); })
+            var x_deb_max = d3.max(debit, function(d) { return parse(d[0]); })
+            var x_cred_max = d3.max(credit, function(d) { return parse(d[0]); })
+
+            var y_deb_min = d3.min(debit, function(d) { return +d[1]; })
+            var y_cred_min = d3.min(credit, function(d) { return +d[1]; })
+            var y_deb_max = d3.max(debit, function(d) { return +d[1]; })
+            var y_cred_max = d3.max(credit, function(d) { return +d[1]; })
+
+            //decides the x domain
+            if (x_deb_min <= x_cred_min) {
+              if (x_deb_max >= x_cred_max) {
+                x.domain([x_deb_min, x_deb_max]).nice();             
+              }
+              else {
+                x.domain([x_deb_min, x_cred_max]).nice();
+              }
+            }
+            else {
+              if (x_deb_max >= x_cred_max) {
+                x.domain([x_cred_min, x_deb_max]).nice();                
+              }
+              else {
+                x.domain([x_cred_min, x_cred_max]).nice();                
+              }
+            }
+
+            //decides the y domain
+            if (y_deb_min <= y_cred_min) {
+              if (y_deb_max >= y_cred_max) {
+                y.domain([y_deb_min, y_deb_max]).nice();                                
+              }
+              else {
+                y.domain([y_deb_min, y_cred_max]).nice();                
+              }
+            }
+            else {
+              if (y_deb_max >= y_cred_max) {
+                y.domain([y_cred_min, y_deb_max]).nice();                
+              }
+              else {
+                y.domain([y_cred_min, y_cred_max]).nice();                
+              }
+            }
 
             // Add an SVG element with the desired dimensions and margin.
             var svg = d3.select(".line_chart").append("svg")
@@ -330,8 +340,7 @@
                 .attr("class", "svg_line")
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                
-
+          
             // Add the clip path.
             svg.append("clipPath")
                 .attr("id", "clip")
