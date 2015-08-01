@@ -52,7 +52,7 @@
 path.line {
   fill: none;
   stroke: #666;
-  stroke-width: 1.5px;
+  stroke-width: 5;
 }
 
 path.area {
@@ -83,3 +83,9 @@ path.area {
   margin-right: 100px;
   float: right;
 }
+
+.legend {
+    font-size: 20px;
+    font-weight: bold;
+    text-anchor: middle;
+} 

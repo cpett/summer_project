@@ -12,6 +12,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count, Max, Min, Avg, Sum, F
 import datetime
 from datetime import timedelta, date
+from django.db import connection
 
 templater = get_renderer('dashboard')
 
@@ -26,14 +27,18 @@ def process_request(request):
   else:
     return HttpResponseRedirect('/homepage/login/')
 
-  acc_id = hmod.Account.objects.all().filter(user_id=userid, acc_type="Credit Card").values_list('id')
+  
+  # truncate_date = connection.ops.date_trunc_sql('month', 'date')
+  # qs = hmod.Transaction.objects.extra({'month':truncate_date})
+  # report = qs.values_list('date', 'transaction_type', 'amount').annotate(Sum('amount')).order_by('date')
 
-  account = hmod.Account.objects.all().filter(user_id=userid).values_list('account_name', 'amount').order_by('-amount')
+  acc_id = hmod.Account.objects.all().filter(user_id=userid, acc_type="Credit Card").values_list('id')
   types = hmod.Account.objects.all().filter(user_id=userid).values_list('account_name', 'amount', 'acc_type').order_by('-amount')
   trans = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('date', 'transaction_type', 'amount', 'category', 'account_name').order_by('date')
-
   date = hmod.Transaction.objects.distinct('date').order_by('date')
-
+  pie_trans = pie_data = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('category', 'transaction_type').annotate(amount=Sum('amount'))
+  
+#trans
   for d in date:
     start_date = d.date
     break
@@ -45,6 +50,7 @@ def process_request(request):
 
   hmod.DebCred.objects.all().delete()
 
+#trans
   while d <= end_date:
     for tran in trans:
       if tran[0] == d: #if trans_date == date crawl go on
@@ -82,18 +88,21 @@ def process_request(request):
             deb.save()
     d += delta
 
+  #for the line chart
   debcred = hmod.DebCred.objects.all().values_list('date', 'cost', 'tran_type', 'year', 'month').order_by('date')
-
   dc_json = json.dumps(list(debcred), cls=DjangoJSONEncoder)
   params['dc_json'] = dc_json
-
-  acc_json = json.dumps(list(account), cls=DjangoJSONEncoder)
+  #for the bar chart
   types_json = json.dumps(list(types), cls=DjangoJSONEncoder)
-  trans_json = json.dumps(list(trans), cls=DjangoJSONEncoder)
-
-  params['acc_json'] = acc_json
   params['types_json'] = types_json
-  params['trans_json'] = trans_json
-  params['account'] = account
+  #for the pie chart
+  pie_json = json.dumps(list(pie_data), cls=DjangoJSONEncoder)
+  params['pie_json'] = pie_json
 
   return templater.render_to_response(request, 'dashboard.html', params)
+
+@view_function
+def test(request):
+  params = {}
+
+  return templater.render_to_response(request, 'test.html', params)

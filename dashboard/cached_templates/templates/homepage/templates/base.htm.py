@@ -4,13 +4,13 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1436572990.929617
+_modified_time = 1437431576.282787
 _enable_loop = True
 _template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base.htm'
 _template_uri = '/homepage/templates/base.htm'
 _source_encoding = 'ascii'
 import os, os.path, re
-_exports = ['left', 'login', 'top', 'content']
+_exports = ['top', 'content', 'login', 'left']
 
 
 from django_mako_plus.controller import static_files 
@@ -24,12 +24,12 @@ def render_body(context,**pageargs):
         STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def top():
             return render_top(context._locals(__M_locals))
+        def login():
+            return render_login(context._locals(__M_locals))
+        self = context.get('self', UNDEFINED)
         request = context.get('request', UNDEFINED)
         def left():
             return render_left(context._locals(__M_locals))
-        self = context.get('self', UNDEFINED)
-        def login():
-            return render_login(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -52,7 +52,12 @@ def render_body(context,**pageargs):
             __M_writer('                    <div class="list-inline">\r\n                        <li><a href="/users/account/"><button class="btn btn-success btn-lg">My Account</button></a></li>\r\n                        <li><a href="/homepage/logout/"><button class="btn btn-primary btn-lg">Log Out</button></a></li>\r\n                    </div>\r\n')
         else:
             __M_writer('                    <div class="list-inline">\r\n                        <li><button id="show_login_dialog" class="btn btn-success btn-lg">Login</button></li>\r\n                        <li><a href="/homepage/signup.create"><button class="btn btn-primary btn-lg">Sign Up</button></a></li>\r\n                    </div>\r\n')
-        __M_writer('                </ul>\r\n                \r\n                <ul class="nav navbar-nav navbar-right">\r\n                    <li>\r\n                      <a  href="/homepage/index/">Home</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/account/account/">Accounts</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/transaction/transaction">Transactions</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/dashboard/dashboard">Dashboard</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n            <!-- /.navbar-collapse -->\r\n        </div>\r\n        <!-- /.container -->\r\n    </nav>\r\n\r\n    <!-- Page Content -->\r\n')
+        __M_writer('                </ul>\r\n                \r\n                <ul class="nav navbar-nav navbar-right">\r\n')
+        if request.user.is_authenticated():
+            __M_writer('                    <li><a>Welcome, ')
+            __M_writer(str( request.user.get_full_name() ))
+            __M_writer(' </a> </li>\r\n')
+        __M_writer('                    <li>\r\n                      <a  href="/homepage/index/">Home</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/account/account/">Accounts</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/transaction/transaction">Transactions</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/dashboard/dashboard">Dashboard</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n            <!-- /.navbar-collapse -->\r\n        </div>\r\n        <!-- /.container -->\r\n    </nav>\r\n\r\n    <!-- Page Content -->\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'top'):
             context['self'].top(**pageargs)
         
@@ -83,30 +88,6 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_left(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def left():
-            return render_left(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n\r\n        ')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
-def render_login(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def login():
-            return render_login(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n      <div>\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  ...\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="instructions_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Upload Instructions</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  Loading the CSV into the database is not a pretty process; as such, uploading your transaction history is a work-in-progress. \r\n                  <p>Currently, there is no way to check for duplicate entries, so beware when performing multiple uploads--you will need to doctor the spreadsheet first to remove duplicates. Also, the upload is a little unstable currently, especially if the user does not follow the upload steps properly. Both of these "features" will be fixed in time. <p>\r\n                  <table><tr>Steps:</tr>\r\n                  <tr>\r\n                    <li>1. Download transaction history from https://mint.com in csv format.</li>\r\n                    <li>2. Create a folder called \'temp\' on your local disk or C drive.</li>\r\n                    <li>3. Save the transactions.csv to the temp folder.</li>\r\n                    <li>4. Format the date column in the csv to follow yyyy-mm-dd.\r\n                        You can do this by highlighting the cells, right-click, select format, custom, and type yyyy-mm-dd.</li>\r\n                    <li>5. Save and exit. It is important to note that if you enter the csv file again, you will need to format the date column again.</li>\r\n                  </tr>\r\n                  </table>\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n    ')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_top(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
@@ -131,8 +112,32 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_login(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def login():
+            return render_login(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n      <div>\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  ...\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="instructions_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Upload Instructions</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  Loading the CSV into the database is not a pretty process; as such, uploading your transaction history is a work-in-progress. \r\n                  <p>Currently, there is no way to check for duplicate entries, so beware when performing multiple uploads--you will need to doctor the spreadsheet first to remove duplicates. Also, the upload is a little unstable currently, especially if the user does not follow the upload steps properly. Both of these "features" will be fixed in time. <p>\r\n                  <table><tr>Steps:</tr>\r\n                  <tr>\r\n                    <li>1. Download transaction history from https://mint.com in csv format.</li>\r\n                    <li>2. Create a folder called \'temp\' on your local disk or C drive.</li>\r\n                    <li>3. Save the transactions.csv to the temp folder.</li>\r\n                    <li>4. Format the date column in the csv to follow yyyy-mm-dd.\r\n                        You can do this by highlighting the cells, right-click, select format, custom, and type yyyy-mm-dd.</li>\r\n                    <li>5. Save and exit. It is important to note that if you enter the csv file again, you will need to format the date column again.</li>\r\n                  </tr>\r\n                  </table>\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n    ')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
+def render_left(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def left():
+            return render_left(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n\r\n        ')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 """
 __M_BEGIN_METADATA
-{"uri": "/homepage/templates/base.htm", "source_encoding": "ascii", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base.htm", "line_map": {"128": 92, "65": 100, "66": 113, "67": 113, "98": 115, "134": 128, "72": 169, "77": 180, "78": 191, "79": 191, "16": 4, "18": 0, "110": 88, "86": 178, "92": 178, "80": 191, "34": 2, "35": 4, "36": 5, "116": 88, "40": 5, "41": 16, "42": 21, "43": 21, "44": 22, "45": 22, "46": 23, "47": 23, "48": 29, "49": 29, "50": 29, "51": 54, "52": 55, "53": 59, "54": 60, "55": 65, "104": 115, "122": 92, "60": 89}}
+{"uri": "/homepage/templates/base.htm", "line_map": {"133": 181, "139": 133, "16": 4, "18": 0, "34": 2, "35": 4, "36": 5, "40": 5, "41": 16, "42": 21, "43": 21, "44": 22, "45": 22, "46": 23, "47": 23, "48": 29, "49": 29, "50": 29, "51": 54, "52": 55, "53": 59, "54": 60, "55": 65, "56": 68, "57": 69, "58": 69, "59": 69, "60": 71, "65": 92, "70": 103, "71": 116, "72": 116, "77": 172, "82": 183, "83": 194, "84": 194, "85": 194, "91": 91, "97": 91, "103": 95, "109": 95, "115": 118, "121": 118, "127": 181}, "source_encoding": "ascii", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base.htm"}
 __M_END_METADATA
 """

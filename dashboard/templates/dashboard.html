@@ -32,13 +32,13 @@
       </div>
     </div>
     <div class="col-md-6">
-      Something will go here. Possibly a pie chart. Maybe something cool.
-      Lorem ipsum dolor sit amet, etiam suscipit molestie, accumsan aliquam est urna, mi metus vel. Mollis ut in congue eros, ornare ac sagittis donec, quis vel cupiditate elit facilisis, lectus purus eu magnis penatibus, at gravida eu. Enim pellentesque integer lorem, morbi quam, massa nulla, nulla enim. Duis quam facilisis congue, blanditiis metus. Duis scelerisque pellentesque ut nullam nunc, aliquam at in quis quisque ipsum.
-      Pellentesque orci eget. Cras tempus at luctus donec sed, odio volutpat elit ultricies adipisci aenean ligula, arcu ac nunc, suspendisse in, lorem gravida cum. Libero quis. Dui vel potenti, vel vestibulum. Suspendisse cras, sapien eu, id mi arcu ridiculus nibh vitae est, nonummy pulvinar et purus, dignissim risus. Velit non mauris pellentesque, integer mattis.
+    <div class="pie_chart">
+      Another Chart Type will go here. Possibly a pie chart for spending by category, or could I could include the raw data for the transactions. This div pending.
+    </div>
+
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="text-right">
+    <div class="col-md-3">
       <h3>Credit vs Debit</h3>
       <select id="l_list" onChange="updateLine()">
           <option value="2015">2015</option>
@@ -55,7 +55,6 @@
 
     <script>
       //#load in data, call loadGraph
-        console.log(${trans_json})
         var data = ${types_json}
         loadGraph(data);
       //#updateData//
@@ -249,7 +248,7 @@
 
         //initial graph load.
         function loadLine(data){
-          var margin = {top: 50, right: 60, bottom: 50, left: 60},
+          var margin = {top: 50, right: 60, bottom: 80, left: 60},
               width = 1100 - margin.left - margin.right,
               height = 600 - margin.top - margin.bottom;   
 
@@ -367,12 +366,46 @@
                 .append('path')
                   .attr('class', 'line')
                   .style('stroke', function(d) {
-                    return colors(Math.random() * 50);
+                    var x = colors(Math.random() * 50)
+                    return x;
                   })
                   .attr('clip-path', 'url(#clip)')
                   .attr('d', function(d) {
                     return line(d);
                   })
+          
+            var cTip = d3.tip()
+              .attr('class', 'd3-tip')
+              .offset([-10, 0])
+              .html(function(d) {
+                return "<strong>Credit transactions are those which add money to your accounts; i.e., a deposit in your checking account.</strong>";
+              })
+            var dTip = d3.tip()
+              .attr('class', 'd3-tip')
+              .offset([-10, 0])
+              .html(function(d) {
+                return "<strong>Debit transactions are those which take money from your accounts; i.e., spending money to buy 5 Guys.</strong>";
+              })
+
+            svg.call(cTip);
+            svg.call(dTip);
+
+            svg.append("text")
+              .attr("x", (width*.45))
+              .attr("y", height + (margin.bottom/2)+25)
+              .attr("fill", "#1f77b4")
+              .attr("class", "legend")
+              .on('mouseover', cTip.show)
+              .on('mouseout', cTip.hide)
+              .text("Credit");
+            svg.append("text")
+              .attr("x", (width*.55))
+              .attr("y", height + (margin.bottom/2)+25)
+              .attr("fill", "#ff7f0e")
+              .attr("class", "legend")
+              .on('mouseover', dTip.show)
+              .on('mouseout', dTip.hide)
+              .text("Debit");
 
             /* Add 'curtain' rectangle to hide entire graph */
             var curtain = svg.append('rect')
@@ -424,7 +457,57 @@
             return d;
           } 
         };
-    </script> 
+    </script>
+
+    <script>/*  
+      var data = ${pie_json}
+      console.log(data)
+
+      var width = 960,
+          height = 500,
+          radius = Math.min(width, height) / 2;
+
+      var color = d3.scale.ordinal()
+          .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+      var arc = d3.svg.arc()
+          .outerRadius(radius - 10)
+          .innerRadius(0);
+
+      var pie = d3.layout.pie()
+          .sort(null)
+          .value(function(d) { return +d[2]; });
+
+      var svg = d3.select(".pie_chart").append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("class", "pie_svg")
+        .append("g")
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        data.forEach(function(d) {
+          d[2] = +d[2];
+          });
+        
+        var g = svg.selectAll(".arc")
+            .data(pie(data))
+          .enter().append("g")
+            .attr("class", "arc");
+
+        g.append("path")
+            .attr("d", arc)
+            .attr("id", "color")
+            .style("fill", function(d) { return color(d.data[0]); });
+
+        g.append("text")
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .text(function(d) { return d.data[0]; });  */
+    </script>
+
+
+
     </body>
   </div>
 </%block>
