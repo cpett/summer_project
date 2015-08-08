@@ -16,15 +16,24 @@
 
 <%block name="content">
     <div class="content">
-      <form method="POST">
-        <table>
-          ${ form }
-        </table>
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/users/account.password/${ user.id }" class="btn btn-success">Change Password</a>          
-        <a href="/users/account.delete/${ user.id }" class="btn btn-danger">Delete Account</a>
-  
+      <div class="row">
+        <div class="col-md-6">
+          <img  width=100% src="${ STATIC_URL }homepage/media/signup.jpg">
+
+        <div class="cold-md-6">
+        <label>This is all your account information as we have it. Feel free to make any changes or updates. You&#8217;ll notice that there isn&#8217;t a place to change your password. That&#8217;s because I don&#8217;t store your password in plain text. You&#8217;ll have to click &#8217;Change Password&#8217; to update your password.</>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form method="POST">
+          <table>
+            ${ form }
+          </table>
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="/users/account.password/${ user.id }" class="btn btn-success">Change Password</a>          
+          <a href="/users/account.delete/${ user.id }" class="btn btn-danger">Delete Account</a>
+      </div>
       </form>
     </div>
 </%block>

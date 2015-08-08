@@ -32,8 +32,16 @@
       </div>
     </div>
     <div class="col-md-6">
+      <div>
+        Number of datapoints: 
+        <input id="datacount" onkeyup="render()" value="15" name="datapoints"></input>
+      </div>
+      <br>
+      Another Chart Goes Here. Possibly a Pie/Donut chart.
+      <br>
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
     <div class="pie_chart">
-      Another Chart Type will go here. Possibly a pie chart for spending by category, or could I could include the raw data for the transactions. This div pending.
+
     </div>
 
     </div>
@@ -503,11 +511,92 @@
             .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
-            .text(function(d) { return d.data[0]; });  */
+            .text(function(d) { return d.data[0]; });  
+      */
     </script>
+    <script>/*
+        var data = ${pie_json}
+        console.log(data)
 
+        var width = 960,
+            height = 500 - 29; // adjust for height of input bar div
 
+        var color = d3.scale.category20();
 
+        // draw and append the container
+        var svg = d3.select(".pie_chart").append("svg")
+          .attr("width", width).attr("height", height);
+
+        // set the thickness of the inner and outer radii
+        var min = Math.min(width, height);
+        var oRadius = min / 2 * 0.9;
+        var iRadius = 0; //min / 2 * 0.85;
+
+        // construct default pie laoyut
+        var pie = d3.layout.pie().value(function(d){ return +d[2]; });
+
+        // construct arc generator
+        var arc = d3.svg.arc()
+          .outerRadius(oRadius)
+          .innerRadius(iRadius);
+
+        // creates the pie chart container
+        var g = svg.append('g')
+        var g = svg.append('g')
+          .attr('transform', function(){
+            if ( window.innerWidth >= 960 ) var shiftWidth = width / 2;
+            if ( window.innerWidth < 960 ) var shiftWidth = width / 3;
+            return 'translate(' + shiftWidth + ',' + height / 2 + ')';
+          })
+
+        // enter data and draw pie chart
+        var path = g.datum(data).selectAll("path")
+          .data(pie)
+          .enter().append("path")
+            .attr("class","piechart")
+            .attr("fill", function(d,i){ return color(i); })
+            .attr("d", arc)
+            .each(function(d){ this._current = d; })
+            .text(function(d) { return d[0]; }); 
+            
+
+        function render(){
+          // generate new random data
+          data = ${pie_json}
+          // add transition to new path
+          g.datum(data).selectAll("path").data(pie).transition().duration(1000).attrTween("d", arcTween)
+
+          // add any new paths
+          g.datum(data).selectAll("path")
+            .data(pie)
+          .enter().append("path")
+            .attr("class","piechart")
+            .attr("fill", function(d,i){ return color(i); })
+            .attr("d", arc)
+            .each(function(d){ this._current = d; })
+            .text(function(d) { return d[0]; });
+
+          // remove data not being used
+          g.datum(data).selectAll("path")
+            .data(pie).exit().remove();
+        }
+
+        //render();
+        //setInterval(render,2000);
+
+        // Store the displayed angles in _current.
+        // Then, interpolate from _current to the new angles.
+        // During the transition, _current is updated in-place by d3.interpolate.
+        
+        function arcTween(a) {
+          var i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function(t) {
+            return arc(i(t));
+          };
+        } 
+        */
+    </script>
     </body>
   </div>
 </%block>

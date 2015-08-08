@@ -36,7 +36,7 @@ def process_request(request):
   types = hmod.Account.objects.all().filter(user_id=userid).values_list('account_name', 'amount', 'acc_type').order_by('-amount')
   trans = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('date', 'transaction_type', 'amount', 'category', 'account_name').order_by('date')
   date = hmod.Transaction.objects.distinct('date').order_by('date')
-  pie_trans = pie_data = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('category', 'transaction_type').annotate(amount=Sum('amount'))
+  pie_data = hmod.Transaction.objects.all().exclude(account_id=acc_id).filter(User_id=userid).values_list('category', 'transaction_type').annotate(amount=Sum('amount'))
   
 #trans
   for d in date:

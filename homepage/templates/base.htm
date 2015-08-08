@@ -67,7 +67,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     %if request.user.is_authenticated():
                     <li><a>Welcome, ${ request.user.get_full_name() } </a> </li>
-                    %endif
+                    
                     <li>
                       <a  href="/homepage/index/">Home</a>
                     </li>
@@ -80,6 +80,17 @@
                     <li>
                         <a href="/dashboard/dashboard">Dashboard</a>
                     </li>
+                    %else:
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    %endif
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -88,6 +99,7 @@
     </nav>
 
     <!-- Page Content -->
+
 <%block name="top">
 </%block>
     <div class="container">
