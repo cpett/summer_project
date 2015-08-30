@@ -18,9 +18,9 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-csv_filepathname="C:/temp/transactions.csv"
+# csv_filepathname="C:/temp/transactions.csv"
 import csv
-dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
+# dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
 
 templater = get_renderer('transaction')
 
@@ -113,9 +113,10 @@ def error(request):
 
 @view_function
 def create(request):
-  t = hmod.Transaction.objects.all().order_by("-id")[0]
-  if t.date == '':
-    return HttpResponseRedirect('/transaction/transaction.edit/{}'.format(t.id))
+  t = hmod.Transaction.objects.all().order_by("-id")
+  if len(t) > 0:
+    if t[0].date == '':
+      return HttpResponseRedirect('/transaction/transaction.edit/{}'.format(t.id))
   if request.user.is_authenticated():
     user_session = request.user
     userid = user_session.id

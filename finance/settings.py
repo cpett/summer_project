@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['codybpettit.me']
 
 
 # Application definition
@@ -46,8 +46,8 @@ INSTALLED_APPS = (
 
 AUTH_USER_MODEL = 'homepage.Users'
 
-FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
-                        "django_excel.TemporaryExcelFileUploadHandler")
+# FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+#                        "django_excel.TemporaryExcelFileUploadHandler")
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,10 +71,10 @@ WSGI_APPLICATION = 'finance.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbFinance',
+        'NAME': 'finance',
         'USER': 'postgres',
-        'PASSWORD': 'dulceata22',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'dulceata',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
