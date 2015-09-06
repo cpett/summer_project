@@ -222,7 +222,33 @@ def delete_all(request):
     tran.delete()
   return HttpResponseRedirect('/transaction/transaction/')
 
+@view_function
+def test(request):
+  params = {}
+  import csv
+  if request.user.is_authenticated():
+    user_session = request.user
+    userid = user_session.id
+  
+  if request.method == 'POST':
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
+    form = UploadFileForm(request.POST, request.FILES)
+    if form.is_valid():
+      print("form is valid")
+      handle_uploaded_file(request.FILES['file'])
+      return HttpResponseRedirect('/transaction/transaction.csv/')
+    # else:
+    #   handle_uploaded_file(request.FILES['file']) 
+  else:
+    form = UploadFileForm()
 
+  params['form'] = form
+  return templater.render_to_response(request, 'transaction.test.html', params)
+  
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+    
 class TransEditForm(forms.Form):
   print('>>>>>>>>>>>>>>>>>Not in if>>>>>>>>>>>>>')
   def __init__(self, *args, **kwargs):
