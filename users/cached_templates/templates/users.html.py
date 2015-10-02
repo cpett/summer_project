@@ -1,16 +1,17 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1433915572.327985
+_modified_time = 1441422444.265383
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\users\\templates/users.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\users\\templates/users.html'
 _template_uri = 'users.html'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
-_exports = ['content', 'top', 'header', 'footer']
+_exports = ['content', 'footer', 'header', 'top']
 
 
 def _mako_get_namespace(context, name):
@@ -28,15 +29,15 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        users = context.get('users', UNDEFINED)
-        def top():
-            return render_top(context._locals(__M_locals))
-        def content():
-            return render_content(context._locals(__M_locals))
-        def header():
-            return render_header(context._locals(__M_locals))
         def footer():
             return render_footer(context._locals(__M_locals))
+        def top():
+            return render_top(context._locals(__M_locals))
+        def header():
+            return render_header(context._locals(__M_locals))
+        def content():
+            return render_content(context._locals(__M_locals))
+        users = context.get('users', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'header'):
@@ -66,9 +67,9 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        users = context.get('users', UNDEFINED)
         def content():
             return render_content(context)
+        users = context.get('users', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n    <div class="content">\r\n      <h2 class="manage">User Management</h2>\r\n      <div class="clearfix"></div>\r\n      <div class="text-right">\r\n        <a href="/users/users.create/" class="btn btn-primary">Create New User</a>\r\n      </div>\r\n      <br>\r\n      <table id="users_table" class="table table-striped table-bordered">\r\n        <tr>\r\n          <th>ID</th>\r\n          <th>Username</th>\r\n          <th>First Name</th>\r\n          <th>Last Name</th>\r\n          <th>Email</th>\r\n          <th>Actions</th>\r\n        </tr>\r\n')
         for user in users:
@@ -91,13 +92,13 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_top(context,**pageargs):
+def render_footer(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def top():
-            return render_top(context)
+        def footer():
+            return render_footer(context)
         __M_writer = context.writer()
-        __M_writer('\r\n  <div class="row top-header">\r\n\r\n  </div>\r\n')
+        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -115,13 +116,13 @@ def render_header(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_footer(context,**pageargs):
+def render_top(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def footer():
-            return render_footer(context)
+        def top():
+            return render_top(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
+        __M_writer('\r\n  <div class="row top-header">\r\n\r\n  </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -129,6 +130,6 @@ def render_footer(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "ascii", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\users\\templates/users.html", "line_map": {"66": 15, "130": 124, "73": 15, "74": 32, "75": 33, "76": 34, "77": 34, "78": 35, "79": 35, "80": 36, "81": 36, "82": 37, "83": 37, "84": 38, "85": 38, "86": 40, "87": 40, "88": 44, "27": 0, "94": 9, "100": 9, "41": 1, "106": 3, "46": 7, "112": 3, "51": 13, "118": 49, "56": 47, "124": 49}, "uri": "users.html"}
+{"source_encoding": "utf-8", "line_map": {"67": 15, "74": 15, "75": 32, "76": 33, "77": 34, "78": 34, "79": 35, "80": 35, "81": 36, "82": 36, "83": 37, "84": 37, "85": 38, "86": 38, "87": 40, "88": 40, "89": 44, "28": 0, "95": 49, "131": 125, "101": 49, "42": 1, "107": 3, "47": 7, "113": 3, "52": 13, "119": 9, "57": 47, "125": 9}, "uri": "users.html", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\users\\templates/users.html"}
 __M_END_METADATA
 """

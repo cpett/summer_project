@@ -50,7 +50,7 @@ def edit(request):
     'state': user.state,
     'country': user.country,
     'zip': user.zip,
-    'group': user.groups.all()[0],
+    'group': user.groups.all(),
   })
   if request.method == 'POST':
     form = UserEditForm(request.POST)

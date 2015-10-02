@@ -73,7 +73,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'finance',
         'USER': 'postgres',
-        'PASSWORD': 'dulceata',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -159,3 +159,4 @@ STATICFILES_DIRS = (
     BASE_DIR,  
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 

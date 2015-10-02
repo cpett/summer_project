@@ -1,14 +1,15 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1438975183.193806
+_modified_time = 1441422428.708858
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base2.htm'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base2.htm'
 _template_uri = '/homepage/templates/base2.htm'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
 _exports = []
 
@@ -19,8 +20,8 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         self = context.get('self', UNDEFINED)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         request = context.get('request', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
@@ -86,6 +87,6 @@ def render_body(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base2.htm", "uri": "/homepage/templates/base2.htm", "line_map": {"16": 4, "18": 0, "26": 2, "27": 4, "28": 5, "32": 5, "33": 23, "34": 28, "35": 28, "36": 29, "37": 29, "38": 30, "39": 30, "40": 31, "41": 31, "42": 32, "43": 32, "44": 34, "45": 34, "46": 37, "47": 37, "48": 40, "49": 40, "50": 51, "51": 51, "52": 51, "53": 73, "54": 74, "55": 78, "56": 79, "57": 84, "58": 86, "59": 87, "60": 87, "61": 87, "62": 97, "63": 98, "64": 108, "65": 149, "66": 150, "67": 164, "68": 165, "69": 176, "70": 177, "71": 189, "72": 215, "73": 215, "74": 237, "75": 237, "76": 259, "77": 259, "78": 328, "79": 328, "80": 331, "81": 331, "87": 81}, "source_encoding": "ascii"}
+{"source_encoding": "utf-8", "line_map": {"17": 4, "19": 0, "27": 2, "28": 4, "29": 5, "33": 5, "34": 23, "35": 28, "36": 28, "37": 29, "38": 29, "39": 30, "40": 30, "41": 31, "42": 31, "43": 32, "44": 32, "45": 34, "46": 34, "47": 37, "48": 37, "49": 40, "50": 40, "51": 51, "52": 51, "53": 51, "54": 73, "55": 74, "56": 78, "57": 79, "58": 84, "59": 86, "60": 87, "61": 87, "62": 87, "63": 97, "64": 98, "65": 108, "66": 149, "67": 150, "68": 164, "69": 165, "70": 176, "71": 177, "72": 189, "73": 215, "74": 215, "75": 237, "76": 237, "77": 259, "78": 259, "79": 328, "80": 328, "81": 331, "82": 331, "88": 82}, "uri": "/homepage/templates/base2.htm", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base2.htm"}
 __M_END_METADATA
 """

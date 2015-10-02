@@ -5,10 +5,10 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1443759421.296284
+_modified_time = 1441553426.435707
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.upload.html'
-_template_uri = 'transaction.upload.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.test.html'
+_template_uri = 'transaction.test.html'
 _source_encoding = 'utf-8'
 import os, os.path, re
 _exports = ['content']
@@ -61,6 +61,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "transaction.upload.html", "line_map": {"36": 1, "54": 3, "55": 13, "56": 13, "41": 23, "28": 0, "62": 56, "47": 3}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.upload.html", "source_encoding": "utf-8"}
+{"uri": "transaction.test.html", "source_encoding": "utf-8", "line_map": {"36": 1, "54": 3, "55": 13, "56": 13, "41": 23, "28": 0, "62": 56, "47": 3}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.test.html"}
 __M_END_METADATA
 """

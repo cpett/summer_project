@@ -1,16 +1,17 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1438977456.885918
+_modified_time = 1443759205.307314
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base.htm'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base.htm'
 _template_uri = '/homepage/templates/base.htm'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
-_exports = ['top', 'left', 'login', 'content']
+_exports = ['content', 'left', 'top', 'login']
 
 
 from django_mako_plus.controller import static_files 
@@ -23,13 +24,13 @@ def render_body(context,**pageargs):
         STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def content():
             return render_content(context._locals(__M_locals))
-        def left():
-            return render_left(context._locals(__M_locals))
         request = context.get('request', UNDEFINED)
-        def login():
-            return render_login(context._locals(__M_locals))
         def top():
             return render_top(context._locals(__M_locals))
+        def login():
+            return render_login(context._locals(__M_locals))
+        def left():
+            return render_left(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -90,13 +91,13 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_top(context,**pageargs):
+def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def top():
-            return render_top(context)
+        def content():
+            return render_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n')
+        __M_writer('\r\n            <div class="col-lg-12 text-center">\r\n                <h1>Lorem Ipsum</h1>\r\n                <p class="lead">Test Test Test</p>\r\n                <ul class="list-unstyled">\r\n                    <li>Bootstrap v3.3.1</li>\r\n                    <li>jQuery v1.11.1</li>\r\n                </ul>\r\n            ')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -114,6 +115,18 @@ def render_left(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_top(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def top():
+            return render_top(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 def render_login(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
@@ -126,20 +139,8 @@ def render_login(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_content(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def content():
-            return render_content(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n            <div class="col-lg-12 text-center">\r\n                <h1>Lorem Ipsum</h1>\r\n                <p class="lead">Test Test Test</p>\r\n                <ul class="list-unstyled">\r\n                    <li>Bootstrap v3.3.1</li>\r\n                    <li>jQuery v1.11.1</li>\r\n                </ul>\r\n            ')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 """
 __M_BEGIN_METADATA
-{"uri": "/homepage/templates/base.htm", "line_map": {"129": 107, "135": 107, "141": 135, "16": 4, "18": 0, "34": 2, "35": 4, "36": 5, "40": 5, "41": 16, "42": 21, "43": 21, "44": 22, "45": 22, "46": 23, "47": 23, "48": 29, "49": 29, "50": 29, "51": 54, "52": 55, "53": 59, "54": 60, "55": 65, "56": 68, "57": 69, "58": 69, "59": 69, "60": 83, "61": 84, "62": 94, "67": 104, "72": 115, "73": 128, "74": 128, "79": 184, "84": 195, "85": 206, "86": 206, "87": 206, "93": 103, "99": 103, "105": 193, "111": 193, "117": 130, "123": 130}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance/homepage/templates/base.htm", "source_encoding": "ascii"}
+{"source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base.htm", "uri": "/homepage/templates/base.htm", "line_map": {"130": 130, "136": 130, "142": 136, "17": 4, "19": 0, "35": 2, "36": 4, "37": 5, "41": 5, "42": 16, "43": 21, "44": 21, "45": 22, "46": 22, "47": 23, "48": 23, "49": 29, "50": 29, "51": 29, "52": 54, "53": 55, "54": 59, "55": 60, "56": 65, "57": 68, "58": 69, "59": 69, "60": 69, "61": 83, "62": 84, "63": 94, "68": 104, "73": 115, "74": 128, "75": 128, "80": 184, "85": 195, "86": 206, "87": 206, "88": 206, "94": 107, "100": 107, "106": 193, "112": 193, "118": 103, "124": 103}}
 __M_END_METADATA
 """

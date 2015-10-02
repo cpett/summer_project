@@ -1,14 +1,15 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1438975456.177865
+_modified_time = 1443759205.211379
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\dashboard\\templates/dashboard.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\dashboard\\templates/dashboard.html'
 _template_uri = 'dashboard.html'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
 _exports = ['content']
 
@@ -28,11 +29,11 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        dc_json = context.get('dc_json', UNDEFINED)
-        pie_json = context.get('pie_json', UNDEFINED)
-        types_json = context.get('types_json', UNDEFINED)
         def content():
             return render_content(context._locals(__M_locals))
+        types_json = context.get('types_json', UNDEFINED)
+        pie_json = context.get('pie_json', UNDEFINED)
+        dc_json = context.get('dc_json', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
@@ -48,11 +49,11 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        dc_json = context.get('dc_json', UNDEFINED)
-        pie_json = context.get('pie_json', UNDEFINED)
-        types_json = context.get('types_json', UNDEFINED)
         def content():
             return render_content(context)
+        types_json = context.get('types_json', UNDEFINED)
+        pie_json = context.get('pie_json', UNDEFINED)
+        dc_json = context.get('dc_json', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n  <div class="content">\r\n    <h2 class="manage">Dashboard</h2>\r\n    <div class="clearfix"></div>\r\n    <br/>\r\n    <div class="row form-inline">\r\n      <div class="col-md-3">\r\n        <h3>Accounts Overview</h3>\r\n        <select id="d_list" onChange="updateData()">\r\n            <option value="All">All</option>\r\n            <option value="Checking">Checking</option>\r\n            <option value="Credit Card">Credit Card</option>\r\n            <option value="Investments">Investments</option>\r\n            <option value="Savings">Savings</option>\r\n            <option value="Other">Other</option>\r\n        </select>\r\n      </div>\r\n      <div class="col-md-3">\r\n      </div>\r\n      <div class="col-md-3">\r\n        <div class="text-right">\r\n          <h3>Lorem Ipsum</h3>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class="row form-inline">\r\n    <div class="col-md-6">\r\n      <div class="bar_chart">\r\n      </div>\r\n    </div>\r\n    <div class="col-md-6">\r\n      <div>\r\n        Number of datapoints: \r\n        <input id="datacount" onkeyup="render()" value="15" name="datapoints"></input>\r\n      </div>\r\n      <br>\r\n      Another Chart Goes Here. Possibly a Pie/Donut chart.\r\n      <br>\r\n      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."\r\n    <div class="pie_chart">\r\n\r\n    </div>\r\n\r\n    </div>\r\n  </div>\r\n    <div class="col-md-3">\r\n      <h3>Credit vs Debit</h3>\r\n      <select id="l_list" onChange="updateLine()">\r\n          <option value="2015">2015</option>\r\n          <option value="2014">2014</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <div>\r\n    <div class="col-md-12">\r\n      <div class="line_chart">\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n    <script>\r\n      //#load in data, call loadGraph\r\n        var data = ')
         __M_writer(str(types_json))
@@ -76,6 +77,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\dashboard\\templates/dashboard.html", "uri": "dashboard.html", "line_map": {"64": 238, "65": 238, "66": 471, "27": 0, "68": 518, "37": 1, "70": 565, "71": 565, "42": 602, "77": 71, "48": 3, "67": 471, "69": 518, "57": 3, "58": 66, "59": 66, "60": 73, "61": 73, "62": 217, "63": 217}, "source_encoding": "ascii"}
+{"source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\dashboard\\templates/dashboard.html", "uri": "dashboard.html", "line_map": {"64": 217, "65": 238, "66": 238, "67": 471, "68": 471, "69": 518, "38": 1, "71": 565, "72": 565, "28": 0, "43": 602, "70": 518, "78": 72, "49": 3, "58": 3, "59": 66, "60": 66, "61": 73, "62": 73, "63": 217}}
 __M_END_METADATA
 """

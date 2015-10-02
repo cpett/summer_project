@@ -1,16 +1,17 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1425678757.360302
+_modified_time = 1441422563.561359
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\colonialHF\\users\\templates/users.edit.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\users\\templates/users.edit.html'
 _template_uri = 'users.edit.html'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
-_exports = ['top', 'content', 'footer', 'header']
+_exports = ['top', 'content', 'header', 'footer']
 
 
 def _mako_get_namespace(context, name):
@@ -28,16 +29,16 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def content():
-            return render_content(context._locals(__M_locals))
-        form = context.get('form', UNDEFINED)
-        user = context.get('user', UNDEFINED)
         def header():
             return render_header(context._locals(__M_locals))
+        user = context.get('user', UNDEFINED)
         def top():
             return render_top(context._locals(__M_locals))
         def footer():
             return render_footer(context._locals(__M_locals))
+        def content():
+            return render_content(context._locals(__M_locals))
+        form = context.get('form', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'header'):
@@ -94,18 +95,6 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_footer(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def footer():
-            return render_footer(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_header(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
@@ -118,8 +107,20 @@ def render_header(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_footer(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def footer():
+            return render_footer(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 """
 __M_BEGIN_METADATA
-{"line_map": {"97": 28, "67": 9, "121": 115, "103": 28, "73": 9, "42": 1, "109": 3, "47": 7, "79": 15, "91": 23, "115": 3, "52": 13, "57": 26, "87": 15, "88": 19, "89": 19, "90": 23, "27": 0}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\colonialHF\\users\\templates/users.edit.html", "source_encoding": "ascii", "uri": "users.edit.html"}
+{"filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\users\\templates/users.edit.html", "source_encoding": "utf-8", "uri": "users.edit.html", "line_map": {"80": 15, "98": 3, "68": 9, "104": 3, "92": 23, "74": 9, "43": 1, "110": 28, "48": 7, "122": 116, "116": 28, "53": 13, "88": 15, "89": 19, "90": 19, "91": 23, "28": 0, "58": 26}}
 __M_END_METADATA
 """

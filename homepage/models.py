@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+# from finance.settings import MEDIA_ROOT as media
+
 
 class Users(AbstractUser):
 	# Inherited from AbstractUser and AbstractBaseUser
@@ -46,5 +48,16 @@ class DebCred(models.Model):
 	tran_type = models.TextField(max_length=75, null=True, blank=True)
 	year = models.TextField(max_length=75, null=True, blank=True)
 	month = models.TextField(max_length=75, null=True, blank=True)
+
+class StockUpload(models.Model):
+    filepath = models.CharField(max_length=255)
+    transaction = models.FileField()
+    user = models.ForeignKey(Users, null=True)
+    # @property
+    # def filename(self):
+    #     return os.path.basename(self.filename)
+
+    # def was_processing_successful(self):
+    #     return self.status == self.PROCESSED
 
 

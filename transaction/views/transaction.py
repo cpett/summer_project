@@ -18,9 +18,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-# csv_filepathname="C:/temp/transactions.csv"
-import csv
-# dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
+from finance.settings import MEDIA_ROOT as media
 
 templater = get_renderer('transaction')
 
@@ -53,58 +51,6 @@ class SheetForm(forms.Form):
   transaction_type = forms.CharField(label='', required=True, max_length=100)
   category = forms.CharField(label='', required=True, max_length=100)
   account_name = forms.CharField(label='', required=True, max_length=100)
-
-@view_function
-def csv(request):
-  params = {}
-
-  if request.user.is_authenticated():
-    user_session = request.user
-    userid = user_session.id
-  else:
-    return HttpResponseRedirect('/homepage/login/')
-
-  csv_filepathname="C:/temp/transactions.csv"
-  import csv
-  dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
-
-  for row in dataReader:
-    if row[0] != 'Date': # Ignore the header row, import everything else
-      amount = Decimal(row[3])
-      if row[4] == 'debit':
-        amount = amount*-1
-      try:
-        acc = hmod.Account.objects.all().filter(user_id=userid)
-        acc2 = acc.get(account_name=row[6])
-      except:
-        acc = hmod.Account()
-        acc.user_id = userid
-        acc.account_name = row[6]
-        acc.amount = 0.00
-        acc.save()
-        return HttpResponseRedirect('/transaction/transaction.delete_all/')
-
-      transaction = hmod.Transaction()
-      transaction.User_id = userid
-      transaction.date = row[0]
-      transaction.description = row[1]
-      transaction.original_description = row[2]
-      transaction.amount = amount
-      transaction.transaction_type = row[4]
-      transaction.category = row[5]
-      transaction.account_id = acc2.id
-      transaction.account_name = row[6]
-      transaction.save()
-
-      acc2.amount += amount
-      acc2.save()
-
-  trans_count = hmod.Transaction.objects.all().count()
-  if trans_count < 1:
-    return HttpResponseRedirect('/transaction/transaction.error/')
-
-  # params['trans'] = trans
-  return templater.render_to_response(request, 'transaction.csv.html', params)
 
 @view_function
 def error(request):
@@ -223,46 +169,96 @@ def delete_all(request):
   return HttpResponseRedirect('/transaction/transaction/')
 
 @view_function
-def test(request):
+def upload(request):
   params = {}
-  import csv
   if request.user.is_authenticated():
     user_session = request.user
-    userid = user_session.id
-  
+    userid = user_session.id  
   if request.method == 'POST':
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
-    form = UploadFileForm(request.POST, request.FILES)
+    form = UploadFile(request.POST, request.FILES)
     if form.is_valid():
-      print("form is valid")
-      handle_uploaded_file(request.FILES['file'])
-      return HttpResponseRedirect('/transaction/transaction.csv/')
-    # else:
-    #   handle_uploaded_file(request.FILES['file']) 
+      files = hmod.StockUpload.objects.all().filter(user=request.user)
+      if files.count() > 0:
+        for f in files:
+          f.delete()
+      trans = form.save(commit=False)
+      trans.user = request.user
+      trans.filepath = media
+      trans.save()
+      handle_uploaded_file(userid)
+      return HttpResponseRedirect('/transaction/transaction/') 
   else:
-    form = UploadFileForm()
+    form = UploadFile()
 
   params['form'] = form
-  return templater.render_to_response(request, 'transaction.test.html', params)
+  return templater.render_to_response(request, 'transaction.upload.html', params)
+
+def handle_uploaded_file(userid):
+  try:
+    t_file = hmod.StockUpload.objects.all().get(user=userid)
+  except:
+    return HttpResponseRedirect('/transaction/transaction/')
+  fp = 'media' + str(t_file.transaction)[1:]
+  import csv
+  filepath = fp
+  print('>>>>>>>>>>>>>>>')
+  print(fp)
+  dataReader = csv.reader(open(filepath), delimiter=',', quotechar='"')
+  # for r in dataReader:
+  #   print(r)
+  for row in dataReader:
+    if row[0] != 'Date': # Ignore the header row, import everything else
+      amount = Decimal(row[3])
+      if row[4] == 'debit':
+        amount = amount*-1
+      
+      acc = hmod.Account.objects.all().filter(user_id=userid)
+      try:
+        acc2 = hmod.Account.objects.get(account_name=row[6])
+      except:
+        acc = hmod.Account()
+        acc.user_id = userid
+        acc.account_name = row[6]
+        acc.amount = 0.00
+        acc.acc_type = 'Other'
+        acc.save()
+
+      acc2 = hmod.Account.objects.get(account_name=row[6])
+      
+      transaction = hmod.Transaction()
+      transaction.User_id = userid
+      transaction.date = row[0]
+      transaction.description = row[1]
+      transaction.original_description = row[2]
+      transaction.amount = amount
+      transaction.transaction_type = row[4]
+      transaction.category = row[5]
+      transaction.account_id = acc2.id
+      transaction.account_name = row[6]
+      transaction.save()
+
+      acc2.amount += amount
+      acc2.save()
+
+  trans_count = hmod.Transaction.objects.all().count()
+  if trans_count < 1:
+    return HttpResponseRedirect('/transaction/transaction.error/')
   
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+class UploadFile(forms.ModelForm):
+  class Meta:
+    model = hmod.StockUpload
+    fields = ('transaction',)
     
 class TransEditForm(forms.Form):
-  print('>>>>>>>>>>>>>>>>>Not in if>>>>>>>>>>>>>')
   def __init__(self, *args, **kwargs):
     user = kwargs.pop('user', None)
     request = kwargs.pop('request', None)
     super(TransEditForm, self).__init__(*args, **kwargs)
 
     if user==None:
-      print('>>>>>user is none>>>>')
       user = kwargs.pop('user')
     # Obtain items for user
     if user is not None:
-      print('>>>>>>>>>>>>user is not none>>>>>>>>>>>>>>>>>>>>>>>>>')
-      print(user.id)
       aquery = hmod.Account.objects.all().filter(user_id=user.id).values_list('account_name', flat=True).order_by('account_name').distinct('account_name')
       aquery_choices = [('', 'None')] + [(id, id) for id in aquery]
 

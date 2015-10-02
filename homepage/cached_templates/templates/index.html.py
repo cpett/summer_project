@@ -1,16 +1,17 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1433642511.884197
+_modified_time = 1441422428.679321
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\homepage\\templates/index.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\homepage\\templates/index.html'
 _template_uri = 'index.html'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
-_exports = ['content', 'header', 'footer']
+_exports = ['footer', 'header', 'content']
 
 
 def _mako_get_namespace(context, name):
@@ -28,11 +29,11 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def content():
-            return render_content(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def header():
             return render_header(context._locals(__M_locals))
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        def content():
+            return render_content(context._locals(__M_locals))
         def footer():
             return render_footer(context._locals(__M_locals))
         __M_writer = context.writer()
@@ -57,16 +58,13 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_content(context,**pageargs):
+def render_footer(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def content():
-            return render_content(context)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        def footer():
+            return render_footer(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div class="content">\r\n      \r\n\r\n        <!-- Modal SignUp-->\r\n        <div class="modal fade" id="signup_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n          <div class="modal-dialog">\r\n            <div class="modal-content">\r\n              <div class="modal-header">\r\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                <h4 class="modal-title" id="myModalLabel">Sign Up</h4>\r\n              </div>\r\n              <div class="modal-body">\r\n                ...\r\n              </div>\r\n                <!--\r\n                  <div class="modal-footer">\r\n                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                    <button type="button" class="btn btn-primary">Save changes</button>\r\n                  </div>\r\n                -->\r\n            </div>\r\n          </div>\r\n        </div>\r\n      <img src="')
-        __M_writer(str( STATIC_URL ))
-        __M_writer('homepage/media/colonial.png" width="75%%" style="margin-left:-25px;">\r\n    </div>\r\n')
+        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -84,13 +82,16 @@ def render_header(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_footer(context,**pageargs):
+def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        def footer():
-            return render_footer(context)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
+        def content():
+            return render_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
+        __M_writer('\r\n    <div class="content">\r\n      \r\n\r\n        <!-- Modal SignUp-->\r\n        <div class="modal fade" id="signup_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n          <div class="modal-dialog">\r\n            <div class="modal-content">\r\n              <div class="modal-header">\r\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                <h4 class="modal-title" id="myModalLabel">Sign Up</h4>\r\n              </div>\r\n              <div class="modal-body">\r\n                ...\r\n              </div>\r\n                <!--\r\n                  <div class="modal-footer">\r\n                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                    <button type="button" class="btn btn-primary">Save changes</button>\r\n                  </div>\r\n                -->\r\n            </div>\r\n          </div>\r\n        </div>\r\n      <img src="')
+        __M_writer(str( STATIC_URL ))
+        __M_writer('homepage/media/colonial.png" width="75%%" style="margin-left:-25px;">\r\n    </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -98,6 +99,6 @@ def render_footer(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"line_map": {"67": 9, "68": 33, "69": 33, "81": 3, "39": 1, "75": 3, "44": 7, "49": 35, "99": 93, "54": 40, "87": 37, "27": 0, "60": 9, "93": 37}, "uri": "index.html", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\homepage\\templates/index.html", "source_encoding": "ascii"}
+{"source_encoding": "utf-8", "line_map": {"67": 37, "100": 94, "93": 33, "40": 1, "73": 3, "45": 7, "28": 0, "79": 3, "50": 35, "85": 9, "55": 40, "92": 9, "61": 37, "94": 33}, "uri": "index.html", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\homepage\\templates/index.html"}
 __M_END_METADATA
 """

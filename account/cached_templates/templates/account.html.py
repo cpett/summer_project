@@ -1,16 +1,17 @@
-# -*- coding:ascii -*-
+# -*- coding:utf-8 -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
+STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1438977573.135455
+_modified_time = 1443755567.031441
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\account\\templates/account.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\account\\templates/account.html'
 _template_uri = 'account.html'
-_source_encoding = 'ascii'
+_source_encoding = 'utf-8'
 import os, os.path, re
-_exports = ['top', 'header', 'footer', 'content']
+_exports = ['header', 'content', 'footer', 'top']
 
 
 def _mako_get_namespace(context, name):
@@ -28,23 +29,23 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        savings = context.get('savings', UNDEFINED)
-        loans = context.get('loans', UNDEFINED)
-        investments = context.get('investments', UNDEFINED)
-        def content():
-            return render_content(context._locals(__M_locals))
-        iDebt = context.get('iDebt', UNDEFINED)
-        iCash = context.get('iCash', UNDEFINED)
-        iLongT = context.get('iLongT', UNDEFINED)
-        checking = context.get('checking', UNDEFINED)
         def top():
             return render_top(context._locals(__M_locals))
-        def footer():
-            return render_footer(context._locals(__M_locals))
+        def content():
+            return render_content(context._locals(__M_locals))
+        loans = context.get('loans', UNDEFINED)
+        checking = context.get('checking', UNDEFINED)
+        iLongT = context.get('iLongT', UNDEFINED)
         def header():
             return render_header(context._locals(__M_locals))
+        savings = context.get('savings', UNDEFINED)
         other = context.get('other', UNDEFINED)
+        def footer():
+            return render_footer(context._locals(__M_locals))
+        investments = context.get('investments', UNDEFINED)
+        iDebt = context.get('iDebt', UNDEFINED)
         credit_card = context.get('credit_card', UNDEFINED)
+        iCash = context.get('iCash', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'header'):
@@ -71,18 +72,6 @@ def render_body(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_top(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def top():
-            return render_top(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n  <div class="row top-header">\r\n\r\n  </div>\r\n')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_header(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
@@ -95,32 +84,20 @@ def render_header(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
-def render_footer(context,**pageargs):
-    __M_caller = context.caller_stack._push_frame()
-    try:
-        def footer():
-            return render_footer(context)
-        __M_writer = context.writer()
-        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
-        return ''
-    finally:
-        context.caller_stack._pop_frame()
-
-
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        savings = context.get('savings', UNDEFINED)
-        loans = context.get('loans', UNDEFINED)
-        investments = context.get('investments', UNDEFINED)
         def content():
             return render_content(context)
-        iDebt = context.get('iDebt', UNDEFINED)
-        iCash = context.get('iCash', UNDEFINED)
-        iLongT = context.get('iLongT', UNDEFINED)
+        loans = context.get('loans', UNDEFINED)
         checking = context.get('checking', UNDEFINED)
+        iLongT = context.get('iLongT', UNDEFINED)
+        savings = context.get('savings', UNDEFINED)
         other = context.get('other', UNDEFINED)
+        investments = context.get('investments', UNDEFINED)
+        iDebt = context.get('iDebt', UNDEFINED)
         credit_card = context.get('credit_card', UNDEFINED)
+        iCash = context.get('iCash', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n    <div class="content">\r\n      <h2 class="manage">Accounts</h2>\r\n      <div class="clearfix"></div>\r\n\r\n      <div class="row">\r\n        <div class="col-md-1">\r\n          <h3 class="manage">Totals</h3>\r\n        </div>\r\n        <div class="col-md-9">\r\n        </div>\r\n        <div class="col-md-2">\r\n          <div class="text-right">\r\n            <a href="/account/account.create/" class="btn btn-primary">Create New Account</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    <div>\r\n      <table id="users_table" class="table table-striped table-bordered">\r\n        <tr>\r\n          <th class="col-md-1">Cash</th>\r\n          <th class="col-md-1">Long Term Assets</th>\r\n          <th class="col-md-1">Debts</th>\r\n          <th class="col-md-1">Net Worth</th>\r\n          <th class="col-md-1">LT Net Worth</th>\r\n        </tr>\r\n        <tr>\r\n          <td><strong>')
         __M_writer(str( iCash ))
@@ -204,8 +181,32 @@ def render_content(context,**pageargs):
         context.caller_stack._pop_frame()
 
 
+def render_footer(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def footer():
+            return render_footer(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n    <div class="footer">\r\n    </div>\r\n')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
+def render_top(context,**pageargs):
+    __M_caller = context.caller_stack._push_frame()
+    try:
+        def top():
+            return render_top(context)
+        __M_writer = context.writer()
+        __M_writer('\r\n  <div class="row top-header">\r\n\r\n  </div>\r\n')
+        return ''
+    finally:
+        context.caller_stack._pop_frame()
+
+
 """
 __M_BEGIN_METADATA
-{"uri": "account.html", "line_map": {"27": 0, "49": 1, "54": 7, "59": 13, "64": 184, "74": 9, "80": 9, "86": 3, "92": 3, "98": 186, "104": 186, "110": 15, "125": 15, "126": 43, "127": 43, "128": 44, "129": 44, "130": 45, "131": 45, "132": 46, "133": 46, "134": 47, "135": 47, "136": 62, "137": 63, "138": 64, "139": 64, "140": 65, "141": 65, "142": 67, "143": 67, "144": 69, "145": 69, "146": 73, "147": 83, "148": 84, "149": 85, "150": 85, "151": 86, "152": 86, "153": 88, "154": 88, "155": 90, "156": 90, "157": 94, "158": 104, "159": 105, "160": 106, "161": 106, "162": 107, "163": 107, "164": 109, "165": 109, "166": 111, "167": 111, "168": 115, "169": 128, "170": 129, "171": 130, "172": 130, "173": 131, "174": 131, "175": 133, "176": 133, "177": 135, "178": 135, "179": 139, "180": 149, "181": 150, "182": 151, "183": 151, "184": 152, "185": 152, "186": 154, "187": 154, "188": 156, "189": 156, "190": 160, "191": 170, "192": 171, "193": 172, "194": 172, "195": 173, "196": 173, "197": 175, "198": 175, "199": 177, "200": 177, "201": 181, "207": 201}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\account\\templates/account.html", "source_encoding": "ascii"}
+{"source_encoding": "utf-8", "uri": "account.html", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\account\\templates/account.html", "line_map": {"28": 0, "50": 1, "55": 7, "60": 13, "65": 184, "75": 3, "81": 3, "87": 15, "102": 15, "103": 43, "104": 43, "105": 44, "106": 44, "107": 45, "108": 45, "109": 46, "110": 46, "111": 47, "112": 47, "113": 62, "114": 63, "115": 64, "116": 64, "117": 65, "118": 65, "119": 67, "120": 67, "121": 69, "122": 69, "123": 73, "124": 83, "125": 84, "126": 85, "127": 85, "128": 86, "129": 86, "130": 88, "131": 88, "132": 90, "133": 90, "134": 94, "135": 104, "136": 105, "137": 106, "138": 106, "139": 107, "140": 107, "141": 109, "142": 109, "143": 111, "144": 111, "145": 115, "146": 128, "147": 129, "148": 130, "149": 130, "150": 131, "151": 131, "152": 133, "153": 133, "154": 135, "155": 135, "156": 139, "157": 149, "158": 150, "159": 151, "160": 151, "161": 152, "162": 152, "163": 154, "164": 154, "165": 156, "166": 156, "167": 160, "168": 170, "169": 171, "170": 172, "171": 172, "172": 173, "173": 173, "174": 175, "175": 175, "176": 177, "177": 177, "178": 181, "184": 186, "190": 186, "196": 9, "202": 9, "208": 202}}
 __M_END_METADATA
 """
