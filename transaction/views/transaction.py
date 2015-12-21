@@ -201,11 +201,8 @@ def handle_uploaded_file(userid):
   fp = 'media' + str(t_file.transaction)[1:]
   import csv
   filepath = fp
-  print('>>>>>>>>>>>>>>>')
-  print(fp)
   dataReader = csv.reader(open(filepath), delimiter=',', quotechar='"')
-  # for r in dataReader:
-  #   print(r)
+
   for row in dataReader:
     if row[0] != 'Date': # Ignore the header row, import everything else
       amount = Decimal(row[3])
