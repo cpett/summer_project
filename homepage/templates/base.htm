@@ -50,16 +50,17 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="row">
                 <ul class="nav navbar-nav navar-left">
                     %if request.user.is_authenticated():
                     <div class="list-inline">
-                        <li><a href="/users/account/"><button class="btn btn-success btn-lg">My Account</button></a></li>
-                        <li><a href="/homepage/logout/"><button class="btn btn-primary btn-lg">Log Out</button></a></li>
+                        <li><a href="/users/account/"><button class="btn btn-success btn-md btntop">My Account</button></a></li>
+                        <li><a href="/homepage/logout/"><button class="btn btn-primary btn-md btntop">Log Out</button></a></li>
                     </div>
                     %else:
                     <div class="list-inline">
-                        <li><button id="show_login_dialog" class="btn btn-success btn-lg">Login</button></li>
-                        <li><a href="/homepage/signup.create"><button class="btn btn-primary btn-lg">Sign Up</button></a></li>
+                        <li><button id="show_login_dialog" class="btn btn-success btn-md btntop">Login</button></li>
+                        <li><a href="/homepage/signup.create"><button class="btn btn-primary btn-md btntop">Sign Up</button></a></li>
                     </div>
                     %endif
                 </ul>
@@ -92,6 +93,7 @@
                         </li>
                     %endif
                 </ul>
+              </div>
             </div>
             <!-- /.navbar-collapse -->
         </div>

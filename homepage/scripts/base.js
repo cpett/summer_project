@@ -14,9 +14,11 @@ $(function () {
       },//success
     });//ajax
   });
-
+  $('.dropdown-toggle').dropdown()
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 });//ready
-
 
 $(function() {
   console.log('datepicker')
