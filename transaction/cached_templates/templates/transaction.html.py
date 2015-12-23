@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1450895588.873198
+_modified_time = 1450910261.817371
 _enable_loop = True
 _template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.html'
 _template_uri = 'transaction.html'
@@ -33,13 +33,13 @@ def render_body(context,**pageargs):
             return render_top(context._locals(__M_locals))
         def footer():
             return render_footer(context._locals(__M_locals))
-        transaction = context.get('transaction', UNDEFINED)
         def header():
             return render_header(context._locals(__M_locals))
         def content():
             return render_content(context._locals(__M_locals))
+        transaction = context.get('transaction', UNDEFINED)
         __M_writer = context.writer()
-        __M_writer('\r\n\r\n')
+        __M_writer('\r\n')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'header'):
             context['self'].header(**pageargs)
         
@@ -104,9 +104,9 @@ def render_header(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        transaction = context.get('transaction', UNDEFINED)
         def content():
             return render_content(context)
+        transaction = context.get('transaction', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n    <div class="content">\r\n      <h2 class="manage">Transaction Index</h2>\r\n      <div class="clearfix"></div>\r\n      <br/>\r\n      <div class="row form-inline">\r\n        <div class="col-sm-6 col-md-6">\r\n          <input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Filter">\r\n        </div>\r\n        <div class="col-sm-6 col-md-6">\r\n          <div class="dropdown text-right">\r\n            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\r\n              Actions\r\n              <span class="caret"></span>\r\n            </button>\r\n            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">\r\n              <li><a href="/transaction/transaction.upload/">Upload CSV</a></li>\r\n              <li><a href="/transaction/transaction.create/">Add Transaction</a></li>\r\n              <li><a href="/transaction/transaction.delete_all/">Delete All Transactions</a></li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n<br/>\r\n      <table id="users_table" class="order-table table table-striped table-bordered">\r\n        <thead>\r\n          <th class="col-sm-2 col-md-2">Date</th>\r\n          <th class="col-sm-1 col-md-1">Description</th>\r\n          <th class="col-sm-4 col-md-4">Original Description</th>\r\n          <th class="col-sm-1 col-md-1">Amount</th>\r\n          <th class="col-sm-1 col-md-1">Type</th>\r\n          <th class="col-sm-1 col-md-1">Category</th>\r\n          <th class="col-sm-1 col-md-1">Account</th>\r\n          <th class="col-sm-2 col-md-2">Actions</th>        \r\n        </thead>\r\n')
         for trans in transaction:
@@ -137,6 +137,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "transaction.html", "line_map": {"128": 61, "129": 61, "130": 65, "131": 65, "68": 9, "74": 9, "126": 59, "138": 132, "80": 77, "121": 56, "86": 77, "57": 75, "132": 73, "111": 15, "28": 0, "98": 3, "104": 15, "92": 3, "42": 1, "47": 7, "112": 50, "113": 51, "114": 53, "115": 53, "116": 54, "117": 54, "118": 55, "119": 55, "120": 56, "52": 13, "122": 57, "123": 57, "124": 58, "125": 58, "62": 80, "127": 59}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.html", "source_encoding": "utf-8"}
+{"filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.html", "line_map": {"128": 60, "129": 60, "130": 64, "131": 64, "68": 8, "74": 8, "126": 58, "138": 132, "80": 76, "121": 55, "86": 76, "57": 74, "132": 72, "111": 14, "28": 0, "98": 2, "104": 14, "92": 2, "42": 1, "47": 6, "112": 49, "113": 50, "114": 52, "115": 52, "116": 53, "117": 53, "118": 54, "119": 54, "120": 55, "52": 12, "122": 56, "123": 56, "124": 57, "125": 57, "62": 79, "127": 58}, "source_encoding": "utf-8", "uri": "transaction.html"}
 __M_END_METADATA
 """

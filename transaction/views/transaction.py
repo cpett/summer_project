@@ -39,28 +39,25 @@ def process_request(request):
   transaction = hmod.Transaction.objects.all().filter(User_id=user_id).order_by('-date')
   trans_count = transaction.count()
 
-  paginator = Paginator(transaction, 50)
+  paginator = Paginator(transaction, 5)
   page = request.GET.get('page')
   try:
-    tran = paginator.page(page)
+    transaction = paginator.page(page)
   except PageNotAnInteger:
-    tran = paginator.page(1)
+    transaction = paginator.page(1)
   except EmptyPage:
-    tran = paginator.page(paginator.num_pages)
+    transaction = paginator.page(paginator.num_pages)
 
-  test = tran.number
-  print(test)
   upper = paginator.num_pages + 1
   pages = range(1, upper)
-  previous_page = tran.number -1
-  next_page = tran.number + 1
+  previous_page = transaction.number -1
+  next_page = transaction.number + 1
 
   params = {'transaction': transaction,
             'trans_count': trans_count,
             'pages': pages,
             'previous_page': previous_page,
             'next_page': next_page,
-            'tran': tran
            }
   return templater.render_to_response(request, 'transaction.html', params)
 

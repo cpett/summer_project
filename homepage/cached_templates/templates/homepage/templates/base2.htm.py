@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1450896886.369308
+_modified_time = 1450908882.115273
 _enable_loop = True
 _template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base2.htm'
 _template_uri = '/homepage/templates/base2.htm'
@@ -20,9 +20,9 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         self = context.get('self', UNDEFINED)
         request = context.get('request', UNDEFINED)
-        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n')
         __M_writer('\r\n')
@@ -60,8 +60,6 @@ def render_body(context,**pageargs):
             __M_writer('                    <li><a>Welcome, ')
             __M_writer(str( request.user.get_full_name() ))
             __M_writer(' </a> </li>\r\n                    <li>\r\n                        <a href="/account/account">Accounts</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/transaction/transaction/">Transactions</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="/dashboard/dashboard">Dashboard</a>\r\n                    </li>\r\n')
-        else:
-            __M_writer('                    <li>\r\n                        <a href="#about">About</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="#services">Services</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href="#contact">Contact</a>\r\n                    </li>\r\n')
         __M_writer('                </ul>\r\n            </div>\r\n            <!-- /.navbar-collapse -->\r\n        </div>\r\n        <!-- /.container -->\r\n    </nav>\r\n\r\n        <!-- Modal Login-->\r\n          <div class="modal fade" id="login_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\r\n            <div class="modal-dialog">\r\n              <div class="modal-content">\r\n                <div class="modal-header">\r\n                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\r\n                  <h4 class="modal-title" id="myModalLabel">Please Login</h4>\r\n                </div>\r\n                <div class="modal-body">\r\n                  ...\r\n                </div>\r\n                  <!--\r\n                    <div class="modal-footer">\r\n                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\r\n                      <button type="button" class="btn btn-warning">Save changes</button>\r\n                    </div>\r\n                  -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n    <!-- Header -->\r\n    <a name="about"></a>\r\n    <div class="intro-header">\r\n        <div class="container">\r\n\r\n            <div class="row">\r\n                <div class="col-lg-12">\r\n                    <div class="intro-message">\r\n                        <h1>My Finances</h1>\r\n                        <h3>Personal Finances</h3>\r\n                        <hr class="intro-divider">\r\n\r\n\r\n')
         if request.user.has_perm('add_logentry'):                        
             __M_writer('                            <ul class="list-inline intro-social-buttons">\r\n                                <li>\r\n                                    <a href="/users/users/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Users</span></a>\r\n                                </li>\r\n                                <li>\r\n                                    <a href="/account/account" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Accounts</span></a>\r\n                                </li>\r\n                                <li>\r\n                                    <a href="/transaction/transaction" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Transactions</span></a>\r\n                                </li>\r\n                                <li>\r\n                                    <a href="/dashboard/dashboard" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Dashboard</span></a>\r\n                                </li>\r\n                            </ul>\r\n')
@@ -87,6 +85,6 @@ def render_body(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base2.htm", "line_map": {"17": 4, "19": 0, "27": 2, "28": 4, "29": 5, "33": 5, "34": 23, "35": 28, "36": 28, "37": 29, "38": 29, "39": 30, "40": 30, "41": 31, "42": 31, "43": 32, "44": 32, "45": 34, "46": 34, "47": 37, "48": 37, "49": 40, "50": 40, "51": 51, "52": 51, "53": 51, "54": 73, "55": 74, "56": 78, "57": 79, "58": 84, "59": 86, "60": 87, "61": 87, "62": 87, "63": 97, "64": 98, "65": 108, "66": 149, "67": 150, "68": 164, "69": 165, "70": 176, "71": 177, "72": 189, "73": 215, "74": 215, "75": 237, "76": 237, "77": 259, "78": 259, "79": 328, "80": 328, "81": 331, "82": 331, "88": 82}, "uri": "/homepage/templates/base2.htm"}
+{"source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project/homepage/templates/base2.htm", "uri": "/homepage/templates/base2.htm", "line_map": {"17": 4, "19": 0, "27": 2, "28": 4, "29": 5, "33": 5, "34": 23, "35": 28, "36": 28, "37": 29, "38": 29, "39": 30, "40": 30, "41": 31, "42": 31, "43": 32, "44": 32, "45": 34, "46": 34, "47": 37, "48": 37, "49": 40, "50": 40, "51": 51, "52": 51, "53": 51, "54": 73, "55": 74, "56": 78, "57": 79, "58": 84, "59": 86, "60": 87, "61": 87, "62": 87, "63": 98, "64": 139, "65": 140, "66": 154, "67": 155, "68": 166, "69": 167, "70": 179, "71": 205, "72": 205, "73": 227, "74": 227, "75": 249, "76": 249, "77": 318, "78": 318, "79": 321, "80": 321, "86": 80}}
 __M_END_METADATA
 """
