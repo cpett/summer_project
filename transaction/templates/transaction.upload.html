@@ -2,22 +2,25 @@
 
 <%block name="content">
     <div class="content">
-      <h2 class="manage">Transaction Sheet</h2>
-      <div class="clearfix"></div>
-      <div class="text-right">
-        <a href="/transaction/transaction/" class="btn btn-primary">Transactions</a>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <h2 class="manage">Transaction Sheet</h2>
       </div>
-      <br>
-      <form method="POST" enctype="multipart/form-data">
-        <table>
-          ${ form }
-        </table>
-        <br>
-        <button type="submit" class="btn btn-success">Submit</button>
-
-        <a href="/transaction/transaction/" class="btn btn-primary">Back</a>
-
-      </form>
-
+      <div class="clearfix"></div>
+      <br/>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        This site accepts the CSV output from <a href="http://mint.com">Mint.com</a>. Once logged in to Mint, go to the
+        "Transactions" tab. At the bottom of the list of transactions, there will be a link that says, "Export all <i>n</i> transactions".
+        Click there to download a CSV that you can upload here.
+        <br/>
+        <br/>
+        <form method="POST" enctype="multipart/form-data">
+          <table>
+            ${ form }
+          </table>
+          <br>
+          <button type="submit" class="btn btn-success">Submit</button>
+          <a href="/transaction/transaction/" class="btn btn-primary">Back</a>
+        </form>
+      </div>
     </div>
 </%block>
