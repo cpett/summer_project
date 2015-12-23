@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group, Permission, ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
+from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -35,10 +37,31 @@ def process_request(request):
     return HttpResponseRedirect('/homepage/login/')
 
   transaction = hmod.Transaction.objects.all().filter(User_id=user_id).order_by('-date')
-  trans_count = hmod.Transaction.objects.all().filter(User_id=user_id).order_by('date').count()
+  trans_count = transaction.count()
 
-  params['transaction'] = transaction
-  params['trans_count'] = trans_count
+  paginator = Paginator(transaction, 50)
+  page = request.GET.get('page')
+  try:
+    tran = paginator.page(page)
+  except PageNotAnInteger:
+    tran = paginator.page(1)
+  except EmptyPage:
+    tran = paginator.page(paginator.num_pages)
+
+  test = tran.number
+  print(test)
+  upper = paginator.num_pages + 1
+  pages = range(1, upper)
+  previous_page = tran.number -1
+  next_page = tran.number + 1
+
+  params = {'transaction': transaction,
+            'trans_count': trans_count,
+            'pages': pages,
+            'previous_page': previous_page,
+            'next_page': next_page,
+            'tran': tran
+           }
   return templater.render_to_response(request, 'transaction.html', params)
 
 ######################################################
@@ -206,6 +229,8 @@ def handle_uploaded_file(userid):
   for row in dataReader:
     if row[0] != 'Date': # Ignore the header row, import everything else
       amount = Decimal(row[3])
+      date = row[0]
+      date = datetime.datetime.strptime(date, "%m/%d/%Y").strftime("%Y-%m-%d")
       if row[4] == 'debit':
         amount = amount*-1
       
