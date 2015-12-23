@@ -134,7 +134,7 @@ h6 {
     float: right;
     margin-top: 0;
 }
-
+.btntop{margin-top: 7px;}
 @media(max-width:1199px) {
     ul.banner-social-buttons {
         float: left;

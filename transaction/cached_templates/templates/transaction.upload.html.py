@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1443759421.296284
+_modified_time = 1450896384.321709
 _enable_loop = True
 _template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.upload.html'
 _template_uri = 'transaction.upload.html'
@@ -51,9 +51,9 @@ def render_content(context,**pageargs):
         def content():
             return render_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div class="content">\r\n      <h2 class="manage">Transaction Sheet</h2>\r\n      <div class="clearfix"></div>\r\n      <div class="text-right">\r\n        <a href="/transaction/transaction/" class="btn btn-primary">Transactions</a>\r\n      </div>\r\n      <br>\r\n      <form method="POST" enctype="multipart/form-data">\r\n        <table>\r\n          ')
+        __M_writer('\r\n    <div class="content">\r\n      <div class="col-sm-6 col-md-6 col-lg-6">\r\n        <h2 class="manage">Transaction Sheet</h2>\r\n      </div>\r\n      <div class="clearfix"></div>\r\n      <br/>\r\n      <div class="col-sm-6 col-md-6 col-lg-6">\r\n        This site accepts the CSV output from <a href="http://mint.m">Mint.com</a>. Once logged in to Mint, go to the\r\n        "Transactions" tab. At the bottom of the list of transactions, there will be a link that says, "Export all <i>n</i> transactions".\r\n        Click there to download a CSV that you can upload here.\r\n        <br/>\r\n        <br/>\r\n        <form method="POST" enctype="multipart/form-data">\r\n          <table>\r\n            ')
         __M_writer(str( form ))
-        __M_writer('\r\n        </table>\r\n        <br>\r\n        <button type="submit" class="btn btn-success">Submit</button>\r\n\r\n        <a href="/transaction/transaction/" class="btn btn-primary">Back</a>\r\n\r\n      </form>\r\n\r\n    </div>\r\n')
+        __M_writer('\r\n          </table>\r\n          <br>\r\n          <button type="submit" class="btn btn-success">Submit</button>\r\n          <a href="/transaction/transaction/" class="btn btn-primary">Back</a>\r\n        </form>\r\n    </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -61,6 +61,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"uri": "transaction.upload.html", "line_map": {"36": 1, "54": 3, "55": 13, "56": 13, "41": 23, "28": 0, "62": 56, "47": 3}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.upload.html", "source_encoding": "utf-8"}
+{"uri": "transaction.upload.html", "source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.upload.html", "line_map": {"36": 1, "54": 3, "55": 18, "56": 18, "41": 25, "28": 0, "62": 56, "47": 3}}
 __M_END_METADATA
 """
