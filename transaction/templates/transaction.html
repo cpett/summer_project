@@ -27,7 +27,7 @@
           <div class="text-right">
             <button  id="show_instructions_dialog" class="btn btn-primary">Upload Instructions</button>
             <a href="/transaction/transaction.upload/" class="btn btn-success">Upload CSV</a>
-            <a href="/transaction/transaction.create/" class="btn btn-warning">Add Transaction</a>
+            <a href="/transaction/transaction.create/" class="btn btn-success">Add Transaction</a>
             <a href="/transaction/transaction.delete_all/" class="btn btn-danger">Delete All Transactions</a>
           </div>
         </div>
@@ -37,12 +37,12 @@
         <thead>
           <th class="col-md-1">Date</th>
           <th class="col-md-1">Description</th>
-          <th class="col-md-5">Original Description</th>
+          <th class="col-md-4">Original Description</th>
           <th class="col-md-1">Amount</th>
           <th class="col-md-1">Type</th>
           <th class="col-md-1">Category</th>
           <th class="col-md-1">Account</th>
-          <th class="col-md-2">Actions</th>        
+          <th class="col-md-3">Actions</th>        
         </thead>
           %for trans in transaction:
           <tbody>
@@ -54,45 +54,14 @@
             <td >${ trans.transaction_type }</td>
             <td >${ trans.category }</td>
             <td >${ trans.account_name }</td>
-            <td class="text-center">
-              <a href="/transaction/transaction.edit/${ trans.id }" class="btn btn-info btn-sm"
-                data-toggle="tooltip" data-placement="bottom" title="Edit">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-              </a>
-              <a href="/transaction/transaction.delete/${ trans.id }" class="btn btn-danger btn-sm"
-                data-toggle="tooltip" data-placement="bottom" title="Remove">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-              </a>
+            <td >
+              <a href="/transaction/transaction.edit/${ trans.id }" class="btn btn-warning">Edit</a>
+              <a href="/transaction/transaction.delete/${ trans.id }" class="btn btn-danger">Delete</a>
             </td>
           </tr>
           </tbody>
           %endfor
       </table>
-    </div>
-<!--PAGINATION-->
-    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-      <ul class="pagination">
-        %if transaction.number > 1:
-          <li>
-            <a href="?page=${ previous_page }" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-        %endif
-        % for page in pages:
-          <li><a href="?page=${ page }">${ page }</a></li>
-        % endfor
-        %if next_page <= transaction.paginator.num_pages:
-          <li>
-            <a href="?page=${ next_page }" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        %endif
-      </ul>
-    </div>
-    <div class="text-center">
-      Page ${ transaction.number } of ${ transaction.paginator.num_pages }
     </div>
 </%block>
 

@@ -1,15 +1,14 @@
-# -*- coding:utf-8 -*-
+# -*- coding:ascii -*-
 from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
-STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1450884206.294971
+_modified_time = 1434806830.2404
 _enable_loop = True
-_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.edit.html'
+_template_filename = 'C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\transaction\\templates/transaction.edit.html'
 _template_uri = 'transaction.edit.html'
-_source_encoding = 'utf-8'
+_source_encoding = 'ascii'
 import os, os.path, re
 _exports = ['content']
 
@@ -29,9 +28,9 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        trans = context.get('trans', UNDEFINED)
         def content():
             return render_content(context._locals(__M_locals))
-        trans = context.get('trans', UNDEFINED)
         form = context.get('form', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n\r\n')
@@ -47,9 +46,9 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        trans = context.get('trans', UNDEFINED)
         def content():
             return render_content(context)
-        trans = context.get('trans', UNDEFINED)
         form = context.get('form', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\r\n    <div class="content">\r\n      <h2 class="manage">Transaction Sheet</h2>\r\n      <div class="clearfix"></div>\r\n      <div class="text-right">\r\n        <a href="/transaction/transaction.upload/" class="btn btn-primary">Upload</a>\r\n      </div>\r\n      <br>\r\n      <form method="POST">\r\n        <table>\r\n          ')
@@ -64,6 +63,6 @@ def render_content(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"line_map": {"65": 59, "37": 1, "55": 3, "56": 13, "57": 13, "58": 17, "59": 17, "28": 0, "47": 3}, "source_encoding": "utf-8", "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\summer_project\\transaction\\templates/transaction.edit.html", "uri": "transaction.edit.html"}
+{"uri": "transaction.edit.html", "line_map": {"64": 58, "36": 1, "54": 3, "55": 13, "56": 13, "57": 17, "58": 17, "27": 0, "46": 3}, "filename": "C:\\Python34\\Lib\\site-packages\\django\\bin\\finance\\transaction\\templates/transaction.edit.html", "source_encoding": "ascii"}
 __M_END_METADATA
 """

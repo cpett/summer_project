@@ -12,8 +12,6 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group, Permission, ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import datetime
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -37,32 +35,10 @@ def process_request(request):
     return HttpResponseRedirect('/homepage/login/')
 
   transaction = hmod.Transaction.objects.all().filter(User_id=user_id).order_by('-date')
-  trans_count = transaction.count()
+  trans_count = hmod.Transaction.objects.all().filter(User_id=user_id).order_by('date').count()
 
-  paginator = Paginator(transaction, 50) # Show 25 contacts per page
-
-  page = request.GET.get('page')
-  try:
-      transaction = paginator.page(page)
-  except PageNotAnInteger:
-      # If page is not an integer, deliver first page.
-      transaction = paginator.page(1)
-  except EmptyPage:
-      # If page is out of range (e.g. 9999), deliver last page of results.
-      transaction = paginator.page(paginator.num_pages)
-  upper = paginator.num_pages + 1
-  pages = range(1, upper)
-
-  print(transaction.number)
-  previous_page = transaction.number - 1
-  next_page = transaction.number + 1
-
-  params = {'transaction': transaction,
-            'trans_count': trans_count,
-            'pages': pages,
-            'previous_page': previous_page,
-            'next_page': next_page
-           }
+  params['transaction'] = transaction
+  params['trans_count'] = trans_count
   return templater.render_to_response(request, 'transaction.html', params)
 
 ######################################################
@@ -230,8 +206,6 @@ def handle_uploaded_file(userid):
   for row in dataReader:
     if row[0] != 'Date': # Ignore the header row, import everything else
       amount = Decimal(row[3])
-      date = row[0]
-      date = datetime.datetime.strptime(date, "%m/%d/%Y").strftime("%Y-%m-%d")
       if row[4] == 'debit':
         amount = amount*-1
       
@@ -250,7 +224,7 @@ def handle_uploaded_file(userid):
       
       transaction = hmod.Transaction()
       transaction.User_id = userid
-      transaction.date = date
+      transaction.date = row[0]
       transaction.description = row[1]
       transaction.original_description = row[2]
       transaction.amount = amount
