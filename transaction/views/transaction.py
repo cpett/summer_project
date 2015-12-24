@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group, Permission, ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
-from datetime import datetime
+import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.shortcuts import render_to_response
@@ -246,7 +246,7 @@ def handle_uploaded_file(userid):
       
       transaction = hmod.Transaction()
       transaction.User_id = userid
-      transaction.date = row[0]
+      transaction.date = date
       transaction.description = row[1]
       transaction.original_description = row[2]
       transaction.amount = amount
